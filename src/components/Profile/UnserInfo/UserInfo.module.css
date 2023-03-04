@@ -1,0 +1,17 @@
+.avatar {
+    margin: 15px
+}
+
+.user{
+    display: flex;
+}
+
+.userInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.userItem{
+    margin-bottom: 20px;
+}

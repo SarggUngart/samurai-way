@@ -1,0 +1,29 @@
+.nav {
+    grid-area: nav;
+    background: #F69454;
+}
+
+.navList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+li {
+    list-style: none;
+    margin: 8px 0;
+
+}
+
+.link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.link.active{
+    color: #0e7ff6;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

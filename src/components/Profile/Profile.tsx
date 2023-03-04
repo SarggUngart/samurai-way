@@ -1,6 +1,6 @@
 import React from 'react';
 import bg from "../../assets/img/bg_main.jpeg";
-import UserInfo from "./UserInfo";
+import UserInfo from "./UnserInfo/UserInfo";
 import Posts from "./Posts/Posts";
 
 

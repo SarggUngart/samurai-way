@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
-    color: white;
+    color: #FCFDFE;
 }
 
 .App-link {
@@ -29,6 +29,7 @@
 }
 
 .app-wrapper {
+    height: 100vh;
     margin: 0 auto;
     width: 1140px;
     display: grid;
@@ -40,23 +41,10 @@
     'nav main'
 }
 
-.header {
-    grid-area: header;
-    background: lightsalmon;
-}
-
-.header img {
-    width: 50px;
-}
-
-.nav {
-    grid-area: nav;
-    background: darksalmon;
-}
 
 .main {
     grid-area: main;
-    background: salmon;
+    background: #FEF2E4;
 }
 
 
