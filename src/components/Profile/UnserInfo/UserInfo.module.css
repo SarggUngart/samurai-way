@@ -1,5 +1,7 @@
 .avatar {
-    margin: 15px
+    width: 150px;
+    margin: 15px;
+    border-radius: 15px;
 }
 
 .user{
