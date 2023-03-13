@@ -1,0 +1,14 @@
+.messages{
+    padding: 10px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message{
+
+    padding: 10px 10px 10px 20px;
+    background: ghostwhite;
+    border-radius: 10px;
+    line-height: 1.3;
+}

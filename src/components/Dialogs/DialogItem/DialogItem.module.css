@@ -1,0 +1,19 @@
+.dialogItem {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 30px;
+    margin: 0;
+}
+
+.dialog {
+    color: #212121;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.dialog.active {
+    color: #fb6161;
+    font-weight: 500;
+}
+
