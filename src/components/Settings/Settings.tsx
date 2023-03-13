@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Messages = () => {
+const Settings = () => {
   return (
     <div>
-      Messages
+      Settings
     </div>
   );
 };
 
-export default Messages;
+export default Settings;

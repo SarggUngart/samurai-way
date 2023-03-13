@@ -6,6 +6,7 @@
 
 .user{
     display: flex;
+    gap: 20px;
 }
 
 .userInfo{

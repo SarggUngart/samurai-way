@@ -15,15 +15,17 @@ li {
 
 }
 
-.link {
+a {
     color: #fff;
     text-decoration: none;
 }
 
-.link.active{
-    color: #0e7ff6;
+.active{
+    color: #282828;
+    font-weight: 500;
 }
 
 .link:hover {
     text-decoration: underline;
 }
+
