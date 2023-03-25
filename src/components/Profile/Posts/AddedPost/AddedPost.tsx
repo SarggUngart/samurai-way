@@ -4,6 +4,7 @@ import avaPost from '../../../../assets/img/avatar.jpeg'
 import like from '../../../../assets/img/like.png'
 
 type AddedPostPropsType = {
+  id:number
   messageInPost: string
   likesCount: number
 }
