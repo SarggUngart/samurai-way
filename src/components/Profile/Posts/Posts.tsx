@@ -1,34 +1,22 @@
 import React from 'react';
-import NewPost from "./NewPost/NewPost";
-import AddedPost from "./AddedPost/AddedPost";
+import NewPostForm from "./NewPostForm/NewPostForm";
+import PostList from "./PostList/PostList";
+import {postsDataType} from "../../../redux/state";
 
-type postDataType = {
-  id: number
-  postText: string
-  likesCount: number
+type PostsPropsType = {
+  postsData: postsDataType[]
 }
 
-const postsData: postDataType[] = [
-  {
-    id: 1,
-    postText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate nam non quae quia repudiandae rerum voluptates voluptatum!',
-    likesCount: 10
-  }, {
-    id: 2,
-    postText: 'Architecto cupiditate delectus, deleniti, facilis, minima praesentium recusandae similique tempora tenetur totam voluptate!',
-    likesCount: 2
-  }
-]
+const Posts: React.FC<PostsPropsType> = (props) => {
+  const {postsData} = props
 
-
-const Posts = () => {
   return (
     <div>
-      <NewPost/>
+      <NewPostForm/>
       {postsData.map(p =>
-        <AddedPost id={p.id} messageInPost={p.postText} likesCount={p.likesCount}/>
+        <PostList key={p.id} id={p.id} messageInPost={p.postText} likesCount={p.likesCount}/>
       )}
-  </div>
+    </div>
   );
 };
 

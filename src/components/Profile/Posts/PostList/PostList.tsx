@@ -1,15 +1,15 @@
 import React from 'react';
-import style from './AddedPost.module.css'
+import style from './PostList.module.css'
 import avaPost from '../../../../assets/img/avatar.jpeg'
 import like from '../../../../assets/img/like.png'
 
-type AddedPostPropsType = {
+type PostListPropsType = {
   id:number
   messageInPost: string
   likesCount: number
 }
 
-const AddedPost: React.FC<AddedPostPropsType> = (props) => {
+const PostList: React.FC<PostListPropsType> = (props) => {
   const {messageInPost, likesCount} = props
 
   return (
@@ -31,4 +31,4 @@ const AddedPost: React.FC<AddedPostPropsType> = (props) => {
   );
 };
 
-export default AddedPost;
+export default PostList;

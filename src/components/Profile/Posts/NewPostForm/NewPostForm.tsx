@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from "../../../Button/Button";
-import style from './NewPost.module.css'
+import style from './NewPostForm.module.css'
 
-const NewPost = () => {
+const NewPostForm = () => {
   return (
     <div>
       <h3 className={style.title}>My Posts</h3>
@@ -16,4 +16,4 @@ const NewPost = () => {
   );
 };
 
-export default NewPost;
+export default NewPostForm;

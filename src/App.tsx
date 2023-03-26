@@ -8,19 +8,31 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import {stateType} from "./redux/state"
 
+type statePropsType = {
+  state: stateType
+}
 
+const App: React.FC<statePropsType> = (props) => {
+  const {state} = props
 
-const App = () => {
   return (
     <BrowserRouter>
       <div className={'app-wrapper'}>
         <Header/>
         <Nav/>
         <main className={'main'}>
-          <Route path='/profile' component={Profile}/>
-          <Route path='/dialogs' component={Dialogs} />
-          <Route path='/news' component={News}/>
+          <Route path='/profile' render={(props) =>
+            <Profile
+              {...props}
+              profileState={state.profilePage.profilePostsData}/>}/>
+          <Route path='/dialogs' render={(props) =>
+            <Dialogs
+              {...props}
+              dialogsData={state.dialogsPage.dialogsData}
+              messagesData={state.dialogsPage.messagesData}/>}/>
+          <Route path='/news' render={() => <News/>}/>
           <Route path='/music' component={Music}/>
           <Route path='/settings' component={Settings}/>
         </main>

@@ -2,33 +2,17 @@ import React from 'react';
 import style from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Messages from "./Messages/Messages";
+import {dialogsDataType, messagesDataType} from "../../redux/state";
 
-type dialogsDataType = {
-  id: number
-  name: string
+type dialogsPropsType = {
+  dialogsData: dialogsDataType[]
+  messagesData: messagesDataType[]
 }
 
-type messagesDataType = {
-  id: number
-  message: string
-}
 
-const dialogsData: dialogsDataType[] = [
-  {id: 1, name: 'Bob'},
-  {id: 2, name: 'Andrew'},
-  {id: 3, name: 'Serj'},
-  {id: 4, name: 'Marina'},
-  {id: 5, name: 'Sveta'}
-]
+const Dialogs:React.FC<dialogsPropsType> = (props) => {
+  const {dialogsData, messagesData} = props
 
-const messagesData: messagesDataType[] = [
-  {id: 1, message: 'hello'},
-  {id: 2, message: 'how are you'},
-  {id: 3, message: 'i get an offer'},
-]
-
-
-const Dialogs = () => {
   return (
     <div className={style.dialogs}>
       <div className={style.dialogsItemWrapper}>
