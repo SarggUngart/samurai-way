@@ -9,6 +9,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {stateType} from "./redux/state"
+import Friends from "./components/Friends/Friends";
 
 type statePropsType = {
   state: stateType
@@ -32,6 +33,10 @@ const App: React.FC<statePropsType> = (props) => {
               {...props}
               dialogsData={state.dialogsPage.dialogsData}
               messagesData={state.dialogsPage.messagesData}/>}/>
+          <Route path='/friends' render={(props) =>
+            <Friends
+              {...props}
+              friendsData={state.friendsPage.friendsData}/>}/>
           <Route path='/news' render={() => <News/>}/>
           <Route path='/music' component={Music}/>
           <Route path='/settings' component={Settings}/>
