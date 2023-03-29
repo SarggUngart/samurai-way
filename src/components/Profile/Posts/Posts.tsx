@@ -5,16 +5,17 @@ import {postsDataType} from "../../../redux/state";
 
 type PostsPropsType = {
   postsData: postsDataType[]
-  addPost: (postText: string) => void
-
+  newPostText: string
+  addPost: () => void
+  updateNewPost: (newPostText: string) => void
 }
 
 const Posts: React.FC<PostsPropsType> = (props) => {
-  const {postsData,addPost} = props
+  const {postsData, newPostText, addPost,updateNewPost} = props
 
   return (
     <div>
-      <NewPostForm addPost={addPost}/>
+      <NewPostForm addPost={addPost} updateNewPost={updateNewPost} newPostText={newPostText}/>
       {postsData.map(p =>
         <PostList key={p.id} id={p.id} messageInPost={p.postText} likesCount={p.likesCount}/>
       )}

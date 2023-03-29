@@ -29,8 +29,9 @@ export type friendsDataType = {
   avatar: string
 }
 
-type ProfilePageType = {
-  profilePostsData: postsDataType[]
+export type ProfilePageType = {
+  profilePostsData: postsDataType[],
+  newPostText: string
 }
 
 type dialogsPageType = {
@@ -54,7 +55,8 @@ const state: stateType = {
         postText: 'Architecto cupiditate delectus, deleniti, facilis, minima praesentium recusandae similique tempora tenetur totam voluptate!',
         likesCount: 2
       }
-    ]
+    ],
+    newPostText: ""
   },
   dialogsPage: {
     dialogsData: [
@@ -103,15 +105,20 @@ const state: stateType = {
 
 export default state
 
-export const addPost = (postText: string) => {
+export const addPost = () => {
   const newPost: postsDataType = {
     id: Date.now(),
-    postText,
+    postText: state.profilePage.newPostText,
     likesCount: 0,
   }
   state.profilePage.profilePostsData.unshift(newPost)
+  state.profilePage.newPostText = ''
   rerenderTree(state)
 }
 
+export let updateNewPost = (newPostText: string) => {
+  state.profilePage.newPostText = newPostText
+  rerenderTree(state)
 
+}
 

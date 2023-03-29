@@ -7,17 +7,19 @@ import {postsDataType} from "../../redux/state";
 
 type ProfilePropsType = {
   profileState: postsDataType[]
-  addPost: (postText: string) => void
+  newPostText: string
+  addPost: () => void
+  updateNewPost: (newPostText: string) => void
 }
 
 const Profile: React.FC<ProfilePropsType> = (props) => {
-  const {profileState,addPost} = props
+  const {profileState,newPostText,addPost,updateNewPost} = props
 
   return (
     <>
       <img className={style.profileBg} src={bg} alt="main_bg"/>
       <UserInfo/>
-      <Posts postsData={profileState} addPost={addPost}/>
+      <Posts postsData={profileState} newPostText={newPostText} addPost={addPost} updateNewPost={updateNewPost}/>
     </>
   );
 };

@@ -13,12 +13,12 @@ import Friends from "./components/Friends/Friends";
 
 type statePropsType = {
   state: stateType
-  addPost: (postText: string) => void
-
+  addPost: () => void
+  updateNewPost: (newPostText: string) => void
 }
 
 const App: React.FC<statePropsType> = (props) => {
-  const {state, addPost} = props
+  const {state, addPost, updateNewPost} = props
 
   return (
     <BrowserRouter>
@@ -30,7 +30,9 @@ const App: React.FC<statePropsType> = (props) => {
             <Profile
               {...props}
               profileState={state.profilePage.profilePostsData}
+              newPostText={state.profilePage.newPostText}
               addPost={addPost}
+              updateNewPost={updateNewPost}
             />}/>
           <Route path='/dialogs' render={(props) =>
             <Dialogs
