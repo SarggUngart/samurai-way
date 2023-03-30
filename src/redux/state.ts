@@ -1,4 +1,6 @@
-import {rerenderTree} from "../rerenderTree";
+let rerenderTree = (state: stateType) => {
+
+}
 
 export type stateType = {
   profilePage: ProfilePageType,
@@ -119,6 +121,9 @@ export const addPost = () => {
 export let updateNewPost = (newPostText: string) => {
   state.profilePage.newPostText = newPostText
   rerenderTree(state)
+}
 
+export const subscribe = (observer: (state: stateType) => void) => {
+  rerenderTree = observer
 }
 
