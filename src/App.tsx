@@ -8,17 +8,16 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {stateType} from "./redux/state"
+import {StoreType} from "./redux/state"
 import Friends from "./components/Friends/Friends";
 
 type statePropsType = {
-  state: stateType
-  addPost: () => void
-  updateNewPost: (newPostText: string) => void
+  store: StoreType
 }
 
 const App: React.FC<statePropsType> = (props) => {
-  const {state, addPost, updateNewPost} = props
+  const {store} = props
+  const state = store.getState()
 
   return (
     <BrowserRouter>
@@ -31,8 +30,8 @@ const App: React.FC<statePropsType> = (props) => {
               {...props}
               profileState={state.profilePage.profilePostsData}
               newPostText={state.profilePage.newPostText}
-              addPost={addPost}
-              updateNewPost={updateNewPost}
+              addPost={store.addPost.bind(store)}
+              updateNewPost={store.updateNewPost.bind(store)}
             />}/>
           <Route path='/dialogs' render={(props) =>
             <Dialogs

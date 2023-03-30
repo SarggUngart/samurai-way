@@ -3,39 +3,35 @@ import Button from "../../../Button/Button";
 import style from './NewPostForm.module.css'
 
 type NewPostFormType = {
-  addPost: () => void
   newPostText: string
+  addPost: () => void
   updateNewPost: (newPostText: string) => void
 }
 
 const NewPostForm: React.FC<NewPostFormType> = (props) => {
-  let {addPost, updateNewPost, newPostText} = props
+    let {addPost, updateNewPost, newPostText} = props
 
-  const newTextRef = React.createRef<HTMLTextAreaElement>()
 
-  const onClickAddPostHandler = () => {
-    if (newTextRef.current && newTextRef.current.value !== '') {
+    const onClickAddPostHandler = () => {
       addPost()
     }
-  }
 
-  const onChangeHandler = () => {
-    if (newTextRef.current) {
-      let newText = newTextRef.current.value
-      updateNewPost(newText)
+    const onChangeNewTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      updateNewPost(e.currentTarget.value)
     }
-  }
 
-  return (
-    <div>
-      <h3 className={style.title}>My Posts</h3>
-      <div className={style.newPost}>
-        <textarea value={newPostText} onChange={onChangeHandler} ref={newTextRef} className={style.text}/>
-        <Button name={'add'} callBack={onClickAddPostHandler}/>
+
+    return (
+      <div>
+        <h3 className={style.title}>My Posts</h3>
+        <div className={style.newPost}>
+          <textarea value={newPostText} onChange={onChangeNewTextHandler} className={style.text}/>
+          <Button name={'add'} callBack={onClickAddPostHandler}/>
+        </div>
+
       </div>
-
-    </div>
-  );
-};
+    );
+  }
+;
 
 export default NewPostForm;

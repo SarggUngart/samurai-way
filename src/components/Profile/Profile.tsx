@@ -3,10 +3,10 @@ import style from './Profile.module.css'
 import bg from "../../assets/img/bg_main.jpeg";
 import UserInfo from "./UnserInfo/UserInfo";
 import Posts from "./Posts/Posts";
-import {postsDataType} from "../../redux/state";
+import {PostsDataType} from "../../redux/state";
 
 type ProfilePropsType = {
-  profileState: postsDataType[]
+  profileState: PostsDataType[]
   newPostText: string
   addPost: () => void
   updateNewPost: (newPostText: string) => void

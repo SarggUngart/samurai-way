@@ -1,10 +1,10 @@
 import React from 'react';
 import NewPostForm from "./NewPostForm/NewPostForm";
 import PostList from "./PostList/PostList";
-import {postsDataType} from "../../../redux/state";
+import {PostsDataType} from "../../../redux/state";
 
 type PostsPropsType = {
-  postsData: postsDataType[]
+  postsData: PostsDataType[]
   newPostText: string
   addPost: () => void
   updateNewPost: (newPostText: string) => void
