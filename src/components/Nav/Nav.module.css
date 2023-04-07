@@ -21,7 +21,18 @@ a {
     text-decoration: none;
 }
 
-.active{
+a {
+    background: linear-gradient(to right, transparent, transparent), linear-gradient(to right, #ff0000, #fff200, #1e9600);
+    background-size: 100% 3px, 0 1px;
+    background-position: 100% 100%, 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s;
+}
+ a:hover{
+     background-size: 0 3px, 100% 1px;
+ }
+
+.active {
     color: #282828;
     font-weight: 500;
 }

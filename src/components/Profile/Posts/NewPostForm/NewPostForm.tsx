@@ -1,23 +1,24 @@
 import React from 'react';
 import Button from "../../../Button/Button";
 import style from './NewPostForm.module.css'
+import {ActionsType} from "../../../../redux/state";
 
 type NewPostFormType = {
   newPostText: string
-  addPost: () => void
-  updateNewPost: (newPostText: string) => void
+  dispatch: (action: ActionsType) => void
 }
 
 const NewPostForm: React.FC<NewPostFormType> = (props) => {
-    let {addPost, updateNewPost, newPostText} = props
+    let {dispatch, newPostText} = props
 
 
     const onClickAddPostHandler = () => {
-      addPost()
+      if (newPostText.length > 0)
+        dispatch({type: 'ADD-POST'})
     }
 
     const onChangeNewTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      updateNewPost(e.currentTarget.value)
+      dispatch({type: 'UPDATE-NEW-POST', newPostText: e.currentTarget.value})
     }
 
 

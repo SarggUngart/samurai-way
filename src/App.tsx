@@ -30,14 +30,15 @@ const App: React.FC<statePropsType> = (props) => {
               {...props}
               profileState={state.profilePage.profilePostsData}
               newPostText={state.profilePage.newPostText}
-              addPost={store.addPost.bind(store)}
-              updateNewPost={store.updateNewPost.bind(store)}
+              dispatch={store.dispatch.bind(store)}
             />}/>
           <Route path='/dialogs' render={(props) =>
             <Dialogs
               {...props}
-              dialogsData={state.dialogsPage.dialogsData}
-              messagesData={state.dialogsPage.messagesData}/>}/>
+              dispatch={store.dispatch.bind(store)}
+              dialogsState={state.dialogsPage}
+              newMessageText={state.dialogsPage.newMessageText}
+            />}/>
           <Route path='/friends' render={(props) =>
             <Friends
               {...props}

@@ -13,6 +13,7 @@ const Messages: React.FC<MessagesPropsType> = (props) => {
     <div className={style.messages}>
       <div className={style.message}>{message}</div>
     </div>
+
   );
 };
 

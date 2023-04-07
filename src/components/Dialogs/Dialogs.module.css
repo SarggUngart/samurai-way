@@ -1,5 +1,28 @@
 .dialogs {
+    height: 100%;
     display: grid;
     grid-template-columns: 2fr 10fr;
     grid-gap: 50px;
+}
+
+
+.newMessage {
+    margin-top: auto;
+    padding: 50px 0 50px 30px;
+}
+
+.text {
+    margin-bottom: 20px;
+    padding: 10px;
+    display: block;
+    width: 550px;
+    height: 50px;
+    border: 0;
+    border-radius: 8px;
+    resize: none;
+}
+
+.MessagesWrapper{
+    display: flex;
+    flex-direction: column;
 }

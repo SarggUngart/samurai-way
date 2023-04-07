@@ -32,22 +32,40 @@ export type ProfilePageType = {
   newPostText: string
 }
 
-type DialogsPageType = {
+export type DialogsPageType = {
   dialogsData: DialogsDataType[]
   messagesData: MessagesDataType[]
+  newMessageText: string
 }
 
 type FriendsPageType = {
   friendsData: FriendsDataType[]
 }
 
+type AddPostActionType = {
+  type: 'ADD-POST'
+}
+type UpdatePostTextActionType = {
+  type: 'UPDATE-NEW-POST',
+  newPostText: string
+}
+type AddMessageActionType = {
+  type: 'ADD-MESSAGE',
+}
+
+type UpdateMessageTextActionType = {
+  type: 'UPDATE-MESSAGE',
+  newMessageText: string
+}
+
+export type ActionsType = AddPostActionType | UpdatePostTextActionType | AddMessageActionType | UpdateMessageTextActionType
+
 export type StoreType = {
   _state: StateType
-  updateNewPost: (newPostText: string) => void
-  addPost: () => void
-  rerenderTree: () => void
+  _rerenderTree: () => void
   subscribe: (observer: () => void) => void
   getState: () => StateType
+  dispatch: (action: ActionsType) => void
 }
 
 export const store: StoreType = {
@@ -78,7 +96,8 @@ export const store: StoreType = {
         {id: 1, message: 'hello'},
         {id: 2, message: 'how are you'},
         {id: 3, message: 'i get an offer'},
-      ]
+      ],
+      newMessageText: ""
     },
     friendsPage: {
       friendsData: [
@@ -115,28 +134,79 @@ export const store: StoreType = {
       ]
     }
   },
-  updateNewPost(newPostText: string) {
-    this._state.profilePage.newPostText = newPostText
-    this.rerenderTree()
+  _rerenderTree() {
   },
-  addPost() {
-    const newPost: PostsDataType = {
-      id: Date.now(),
-      postText: store._state.profilePage.newPostText,
-      likesCount: 0,
-    }
-    this._state.profilePage.profilePostsData.unshift(newPost)
-    this._state.profilePage.newPostText = ''
-    this.rerenderTree()
-  },
+
   subscribe(observer: () => void) {
-    this.rerenderTree = observer
-  },
-  rerenderTree() {
+    this._rerenderTree = observer
   },
   getState() {
     return this._state
+  },
+  dispatch(action) {
+    switch (action.type) {
+      case  'ADD-POST': {
+        const newPost: PostsDataType = {
+          id: Date.now(),
+          postText: store._state.profilePage.newPostText,
+          likesCount: 0,
+        }
+        this._state.profilePage.profilePostsData.unshift(newPost)
+        this._state.profilePage.newPostText = ''
+        this._rerenderTree()
+      }
+        break;
+      case 'UPDATE-NEW-POST': {
+        this._state.profilePage.newPostText = action.newPostText
+        this._rerenderTree()
+      }
+        break;
+      case 'ADD-MESSAGE': {
+        const newMessage: MessagesDataType = {
+          id: Date.now(),
+          message: store._state.dialogsPage.newMessageText
+        }
+        this._state.dialogsPage.messagesData.push(newMessage)
+        this._state.dialogsPage.newMessageText = ''
+        this._rerenderTree()
+      }
+        break;
+      case 'UPDATE-MESSAGE': {
+        this._state.dialogsPage.newMessageText = action.newMessageText
+        this._rerenderTree()
+      }
+        break;
+      default:
+        store.getState()
+    }
   }
+  // updateNewPost(newPostText: string) {
+  //   this._state.profilePage.newPostText = newPostText
+  //   this._rerenderTree()
+  // },
+  // addPost() {
+  //   const newPost: PostsDataType = {
+  //     id: Date.now(),
+  //     postText: store._state.profilePage.newPostText,
+  //     likesCount: 0,
+  //   }
+  //   this._state.profilePage.profilePostsData.unshift(newPost)
+  //   this._state.profilePage.newPostText = ''
+  //   this._rerenderTree()
+  // },
+  // updateNewMessage(newMessageText: string) {
+  //   this._state.dialogsPage.newMessageText = newMessageText
+  //   this._rerenderTree()
+  // },
+  // addMessage() {
+  //   const newMessage: MessagesDataType = {
+  //     id: Date.now(),
+  //     message: store._state.dialogsPage.newMessageText
+  //   }
+  //   this._state.dialogsPage.messagesData.push(newMessage)
+  //   this._state.dialogsPage.newMessageText = ''
+  //   this._rerenderTree()
+  // },
 }
 
 
