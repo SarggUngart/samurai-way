@@ -1,3 +1,7 @@
+import {addPostAC, profileReducer, updatePostAC} from "./profile-reducer";
+import {addMessageAC, dialogsReducer, updateMessageAC} from "./dialogs-reducer";
+import {friendsReducer} from "./friends-reducer";
+
 export type StateType = {
   profilePage: ProfilePageType,
   dialogsPage: DialogsPageType,
@@ -38,27 +42,16 @@ export type DialogsPageType = {
   newMessageText: string
 }
 
-type FriendsPageType = {
+export type FriendsPageType = {
   friendsData: FriendsDataType[]
 }
 
-type AddPostActionType = {
-  type: 'ADD-POST'
-}
-type UpdatePostTextActionType = {
-  type: 'UPDATE-NEW-POST',
-  newPostText: string
-}
-type AddMessageActionType = {
-  type: 'ADD-MESSAGE',
-}
 
-type UpdateMessageTextActionType = {
-  type: 'UPDATE-MESSAGE',
-  newMessageText: string
-}
-
-export type ActionsType = AddPostActionType | UpdatePostTextActionType | AddMessageActionType | UpdateMessageTextActionType
+export type ActionsType =
+  ReturnType<typeof addPostAC>
+  | ReturnType<typeof updatePostAC>
+  | ReturnType<typeof addMessageAC>
+  | ReturnType<typeof updateMessageAC>
 
 export type StoreType = {
   _state: StateType
@@ -144,71 +137,12 @@ export const store: StoreType = {
     return this._state
   },
   dispatch(action) {
-    switch (action.type) {
-      case  'ADD-POST': {
-        const newPost: PostsDataType = {
-          id: Date.now(),
-          postText: store._state.profilePage.newPostText,
-          likesCount: 0,
-        }
-        this._state.profilePage.profilePostsData.unshift(newPost)
-        this._state.profilePage.newPostText = ''
-        this._rerenderTree()
-      }
-        break;
-      case 'UPDATE-NEW-POST': {
-        this._state.profilePage.newPostText = action.newPostText
-        this._rerenderTree()
-      }
-        break;
-      case 'ADD-MESSAGE': {
-        const newMessage: MessagesDataType = {
-          id: Date.now(),
-          message: store._state.dialogsPage.newMessageText
-        }
-        this._state.dialogsPage.messagesData.push(newMessage)
-        this._state.dialogsPage.newMessageText = ''
-        this._rerenderTree()
-      }
-        break;
-      case 'UPDATE-MESSAGE': {
-        this._state.dialogsPage.newMessageText = action.newMessageText
-        this._rerenderTree()
-      }
-        break;
-      default:
-        store.getState()
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action)
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+    this._state.friendsPage = friendsReducer(this._state.friendsPage, action)
+    this._rerenderTree()
   }
-  // updateNewPost(newPostText: string) {
-  //   this._state.profilePage.newPostText = newPostText
-  //   this._rerenderTree()
-  // },
-  // addPost() {
-  //   const newPost: PostsDataType = {
-  //     id: Date.now(),
-  //     postText: store._state.profilePage.newPostText,
-  //     likesCount: 0,
-  //   }
-  //   this._state.profilePage.profilePostsData.unshift(newPost)
-  //   this._state.profilePage.newPostText = ''
-  //   this._rerenderTree()
-  // },
-  // updateNewMessage(newMessageText: string) {
-  //   this._state.dialogsPage.newMessageText = newMessageText
-  //   this._rerenderTree()
-  // },
-  // addMessage() {
-  //   const newMessage: MessagesDataType = {
-  //     id: Date.now(),
-  //     message: store._state.dialogsPage.newMessageText
-  //   }
-  //   this._state.dialogsPage.messagesData.push(newMessage)
-  //   this._state.dialogsPage.newMessageText = ''
-  //   this._rerenderTree()
-  // },
 }
-
 
 
 

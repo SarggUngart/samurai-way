@@ -4,6 +4,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import Messages from "./Messages/Messages";
 import {ActionsType, DialogsPageType} from "../../redux/state";
 import Button from "../Button/Button";
+import {addMessageAC, updateMessageAC} from "../../redux/dialogs-reducer";
 
 type dialogsPropsType = {
   dialogsState: DialogsPageType
@@ -20,12 +21,12 @@ const Dialogs: React.FC<dialogsPropsType> = (props) => {
 
   const onClickAddMessageHandler = () => {
     if (newMessageText.length > 0)
-      dispatch({type:'ADD-MESSAGE'})
+      dispatch(addMessageAC())
   }
 
 
   const onChangeNewMessageHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch({type: 'UPDATE-MESSAGE', newMessageText: e.currentTarget.value})
+    dispatch(updateMessageAC(e.currentTarget.value))
   }
 
 
@@ -33,7 +34,7 @@ const Dialogs: React.FC<dialogsPropsType> = (props) => {
     <div className={style.dialogs}>
       <div className={style.dialogsItemWrapper}>
         {stateForDialogs.map(d =>
-          <DialogItem id={d.id} name={d.name}/>
+          <DialogItem key={d.id} id={d.id} name={d.name}/>
         )}
       </div>
 

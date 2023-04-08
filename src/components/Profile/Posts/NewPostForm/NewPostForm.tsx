@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from "../../../Button/Button";
 import style from './NewPostForm.module.css'
-import {ActionsType} from "../../../../redux/state";
+import {ActionsType, } from "../../../../redux/state";
+import {addPostAC, updatePostAC} from "../../../../redux/profile-reducer";
 
 type NewPostFormType = {
   newPostText: string
@@ -14,11 +15,11 @@ const NewPostForm: React.FC<NewPostFormType> = (props) => {
 
     const onClickAddPostHandler = () => {
       if (newPostText.length > 0)
-        dispatch({type: 'ADD-POST'})
+        dispatch(addPostAC())
     }
 
-    const onChangeNewTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      dispatch({type: 'UPDATE-NEW-POST', newPostText: e.currentTarget.value})
+    const onChangeNewTextHandler = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+      dispatch(updatePostAC(e.currentTarget.value))
     }
 
 
