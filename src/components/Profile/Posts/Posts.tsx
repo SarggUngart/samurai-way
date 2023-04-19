@@ -1,20 +1,20 @@
 import React from 'react';
-import NewPostForm from "./NewPostForm/NewPostForm";
 import PostList from "./PostList/PostList";
-import {ActionsType, PostsDataType} from "../../../redux/state";
+import {ActionsType, PostsDataType, StoreType} from "../../../redux/state";
+import {NewPostFormContainer} from "./NewPostForm/NewPostFormContainer";
 
 type PostsPropsType = {
   postsData: PostsDataType[]
   newPostText: string
-  dispatch:(action:ActionsType)=>void
+  store: StoreType
 }
 
 const Posts: React.FC<PostsPropsType> = (props) => {
-  const {postsData, newPostText, dispatch} = props
+  const {postsData, newPostText, store} = props
 
   return (
     <div>
-      <NewPostForm dispatch={dispatch} newPostText={newPostText}/>
+      <NewPostFormContainer store={store} newPostText={newPostText}/>
       {postsData.map(p =>
         <PostList key={p.id} id={p.id} messageInPost={p.postText} likesCount={p.likesCount}/>
       )}

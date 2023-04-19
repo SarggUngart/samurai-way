@@ -3,22 +3,24 @@ import style from './Profile.module.css'
 import bg from "../../assets/img/bg_main.jpeg";
 import UserInfo from "./UnserInfo/UserInfo";
 import Posts from "./Posts/Posts";
-import {ActionsType, PostsDataType} from "../../redux/state";
+import {StoreType} from "../../redux/state";
+import {ReducersRootState} from "../../redux/redux-store";
 
 type ProfilePropsType = {
-  profileState: PostsDataType[]
-  newPostText: string
-  dispatch:(action:ActionsType)=>void
+  state: ReducersRootState
+  store: StoreType
 }
 
 const Profile: React.FC<ProfilePropsType> = (props) => {
-  const {profileState,newPostText,dispatch} = props
+  const {state, store} = props
+  const profileState = state.profileReducer.profilePostsData
+  const newPostText = state.profileReducer.newPostText
 
   return (
     <>
       <img className={style.profileBg} src={bg} alt="main_bg"/>
       <UserInfo/>
-      <Posts postsData={profileState} newPostText={newPostText} dispatch={dispatch}/>
+      <Posts postsData={profileState} newPostText={newPostText} store={store}/>
     </>
   );
 };

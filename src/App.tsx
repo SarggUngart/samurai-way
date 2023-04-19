@@ -8,16 +8,21 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {StoreType} from "./redux/state"
+import { StoreType} from "./redux/state"
 import Friends from "./components/Friends/Friends";
+import {ReducersRootState} from "./redux/redux-store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+// import Friends from "./components/Friends/Friends";
 
 type statePropsType = {
+  state: ReducersRootState
   store: StoreType
 }
 
 const App: React.FC<statePropsType> = (props) => {
-  const {store} = props
-  const state = store.getState()
+
+  debugger
+  const {state, store} = props
 
   return (
     <BrowserRouter>
@@ -28,21 +33,19 @@ const App: React.FC<statePropsType> = (props) => {
           <Route path='/profile' render={(props) =>
             <Profile
               {...props}
-              profileState={state.profilePage.profilePostsData}
-              newPostText={state.profilePage.newPostText}
-              dispatch={store.dispatch.bind(store)}
+              state={state}
+              store={store}
             />}/>
           <Route path='/dialogs' render={(props) =>
-            <Dialogs
+            <DialogsContainer
               {...props}
-              dispatch={store.dispatch.bind(store)}
-              dialogsState={state.dialogsPage}
-              newMessageText={state.dialogsPage.newMessageText}
+              store={store}
+              state={state}
             />}/>
           <Route path='/friends' render={(props) =>
             <Friends
               {...props}
-              friendsData={state.friendsPage.friendsData}/>}/>
+              state={state}/>}/>
           <Route path='/news' render={() => <News/>}/>
           <Route path='/music' component={Music}/>
           <Route path='/settings' component={Settings}/>

@@ -122,7 +122,7 @@ export const store: StoreType = {
           id: 5,
           name: 'Sveta',
           age: 18,
-          avatar: 'https://avatars.mds.yandex.net/i?id=76e24f494c67df27ab806335b467308515628a80-9181140-images-thumbs&n=13&exp=1'
+          avatar: 'https://i.ytimg.com/vi/Yv2I9iXsayk/hqdefault.jpg'
         }
       ]
     }
