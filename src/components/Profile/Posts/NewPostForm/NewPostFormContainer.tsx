@@ -1,31 +1,26 @@
 import React from 'react';
-import {StoreType,} from "../../../../redux/state";
-import {addPostAC, updatePostAC} from "../../../../redux/profile-reducer";
 import NewPostForm from "./NewPostForm";
 
-type NewPostFormType = {
+type NewPostFormContainerType = {
   newPostText: string
-  store: StoreType
+  addPost: () => void
+  updatePostText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-export const NewPostFormContainer: React.FC<NewPostFormType> = (props) => {
-    let {store, newPostText} = props
+export const NewPostFormContainer: React.FC<NewPostFormContainerType> = (props) => {
+    let {newPostText, addPost, updatePostText} = props
 
 
     const onClickAddPostHandler = () => {
       if (newPostText.length > 0)
-        store.dispatch(addPostAC())
-    }
-
-    const onChangeNewTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      store.dispatch(updatePostAC(e.currentTarget.value))
+        addPost()
     }
 
 
     return (
       <NewPostForm newPostText={newPostText}
                    addPost={onClickAddPostHandler}
-                   updatePostText={onChangeNewTextHandler}/>
+                   updatePostText={updatePostText}/>
     );
   }
 ;

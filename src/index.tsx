@@ -1,16 +1,20 @@
 import React from 'react';
-import {reduxStore, ReducersRootState} from "./redux/redux-store";
+import {ReduxStateType, reduxStore} from "./redux/redux-store";
 import ReactDOM from "react-dom";
 import App from "./App";
+import {Provider} from "./redux/StoreContext";
 
-
-
-const rerenderTree = (state: ReducersRootState) => {
+const rerenderTree = (state: ReduxStateType) => {
   ReactDOM.render(
-    <App store={reduxStore} state={state}/>,
+    <Provider reduxStore={reduxStore}>
+      <App state={state}/>
+    </Provider>
+    ,
     document.getElementById('root')
   );
 }
+
+
 reduxStore.subscribe(() => {
   rerenderTree(reduxStore.getState())
 })

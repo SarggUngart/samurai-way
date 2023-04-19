@@ -1,9 +1,9 @@
 import React from 'react';
 import style from './Friends.module.css'
-import {ReducersRootState} from "../../redux/redux-store";
+import {ReduxStateType} from "../../redux/redux-store";
 
 type FriendsDataPropsType = {
-  state: ReducersRootState
+  state: ReduxStateType
 }
 
 const Friends: React.FC<FriendsDataPropsType> = (props) => {

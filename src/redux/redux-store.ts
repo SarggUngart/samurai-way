@@ -4,8 +4,8 @@ import {dialogsReducer} from "./dialogs-reducer";
 import {friendsReducer} from "./friends-reducer";
 
 
-export type ReducersRootState = ReturnType<typeof reducers> //Type of new State (redux).
-
+type RootState = typeof reducers;
+export type ReduxStateType = ReturnType<RootState>
 
 const reducers = combineReducers({
   profileReducer,
