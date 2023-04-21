@@ -12,7 +12,7 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-  addDialog: () => void
+  addMessage: () => void
   updateMessageText: (newMessageText:string) => void
 }
 
@@ -28,7 +28,7 @@ const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
   return {
-    addDialog: () => {
+    addMessage: () => {
       dispatch(addMessageAC())
     },
     updateMessageText: (newMessageText:string) => {

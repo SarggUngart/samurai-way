@@ -1,11 +1,10 @@
-import {addPostAC, profileReducer, updatePostAC} from "./profile-reducer";
-import {addMessageAC, dialogsReducer, updateMessageAC} from "./dialogs-reducer";
-import {friendsReducer} from "./friends-reducer";
+import {addPostAC, updatePostAC} from "./profile-reducer";
+import {addMessageAC, updateMessageAC} from "./dialogs-reducer";
 
 export type StateType = {
   profilePage: ProfilePageType,
   dialogsPage: DialogsPageType,
-  friendsPage: FriendsPageType
+  usersPage: UsersPageType
 }
 
 export type DialogsDataType = {
@@ -24,7 +23,7 @@ export type PostsDataType = {
   likesCount: number
 }
 
-export type FriendsDataType = {
+export type UsersDataType = {
   id: number
   name: string
   age: number
@@ -42,8 +41,8 @@ export type DialogsPageType = {
   newMessageText: any
 }
 
-export type FriendsPageType = {
-  friendsData: FriendsDataType[]
+export type UsersPageType = {
+  friendsData: UsersDataType[]
 }
 
 

@@ -9,19 +9,18 @@ import {DialogsPropsType} from "./DialogsContainer";
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
   const {
-    addDialog,
+    addMessage,
     updateMessageText,
     dialogsPage,
   } = props
 
   const onClickNewMessage = () => {
-    addDialog()
+    if(!dialogsPage.newMessageText) return
+    addMessage()
   }
 
   const onChangeMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // debugger
     updateMessageText(e.currentTarget.value)
-    console.log(e.currentTarget.value)
   }
 
   return (

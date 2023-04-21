@@ -1,12 +1,12 @@
 import React from 'react';
-import style from './Friends.module.css'
-import {FriendsPageType} from "../../redux/state";
+import style from './Users.module.css'
+import {UsersPageType} from "../../redux/state";
 
-type FriendsDataPropsType = {
-  state: FriendsPageType
+type UsersDataPropsType = {
+  state: UsersPageType
 }
 
-const Friends: React.FC<FriendsDataPropsType> = (props) => {
+const Users: React.FC<UsersDataPropsType> = (props) => {
   const {state} = props
 
   return (<React.Fragment>
@@ -27,4 +27,4 @@ const Friends: React.FC<FriendsDataPropsType> = (props) => {
   );
 };
 
-export default Friends;
+export default Users;

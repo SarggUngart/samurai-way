@@ -1,6 +1,6 @@
-import {ActionsType, FriendsPageType} from "./state";
+import {ActionsType, UsersPageType} from "./state";
 
-const friendsReducerInitialState: FriendsPageType = {
+const usersReducerInitialState: UsersPageType = {
   friendsData: [
     {
       id: 1,
@@ -36,7 +36,7 @@ const friendsReducerInitialState: FriendsPageType = {
 }
 
 
-export const friendsReducer = (state: FriendsPageType = friendsReducerInitialState, action: ActionsType): FriendsPageType => {
+export const usersReducer = (state: UsersPageType = usersReducerInitialState, action: ActionsType): UsersPageType => {
 
   return state
 }

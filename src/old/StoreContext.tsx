@@ -1,7 +1,7 @@
 import React from "react";
-import {ActionsType} from "./state";
+import {ActionsType} from "../redux/state";
 import {Store} from "redux";
-import {ReduxStateType} from "./redux-store";
+import {ReduxStateType} from "../redux/redux-store";
 
 export const StoreContext = React.createContext({} as Store<ReduxStateType, ActionsType>)
 
@@ -17,6 +17,3 @@ export const Provider = (props: ProviderType) => {
     </StoreContext.Provider>
   )
 }
-
-
-export default StoreContext
