@@ -2,45 +2,44 @@ import React from 'react';
 import style from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Messages from "./Messages/Messages";
-import {DialogsDataType, MessagesDataType} from "../../redux/state";
 import Button from "../Button/Button";
-
-type dialogsPropsType = {
-  addMessage: () => void
-  updateMessageText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
-  stateForDialogs: DialogsDataType[]
-  stateForMessages: MessagesDataType[]
-  message: string
-}
+import {DialogsPropsType} from "./DialogsContainer";
 
 
-const Dialogs: React.FC<dialogsPropsType> = (props) => {
+const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
   const {
-    addMessage,
+    addDialog,
     updateMessageText,
-    stateForDialogs,
-    stateForMessages,
-    message
+    dialogsPage,
   } = props
 
+  const onClickNewMessage = () => {
+    addDialog()
+  }
+
+  const onChangeMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    // debugger
+    updateMessageText(e.currentTarget.value)
+    console.log(e.currentTarget.value)
+  }
 
   return (
     <div className={style.dialogs}>
       <div className={style.dialogsItemWrapper}>
-        {stateForDialogs.map(d =>
+        {dialogsPage.dialogsData.map(d =>
           <DialogItem key={d.id} id={d.id} name={d.name}/>
         )}
       </div>
 
       <div className={style.MessagesWrapper}>
-        {stateForMessages.map(m =>
+        {dialogsPage.messagesData.map(m =>
           <Messages key={m.id} id={m.id} message={m.message}/>
         )}
         <div className={style.newMessage}>
-          <textarea value={message} onChange={updateMessageText}
+          <textarea value={dialogsPage.newMessageText} onChange={onChangeMessage}
                     className={style.text}/>
-          <Button name={'add'} callBack={addMessage}/>
+          <Button name={'add'} callBack={onClickNewMessage}/>
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import {dialogsReducer} from "./dialogs-reducer";
 import {friendsReducer} from "./friends-reducer";
 
 
-type RootState = typeof reducers;
+export type RootState = typeof reducers;
 export type ReduxStateType = ReturnType<RootState>
 
 const reducers = combineReducers({
@@ -13,6 +13,7 @@ const reducers = combineReducers({
   friendsReducer,
 })
 
-export const reduxStore: any = createStore(reducers)
+export const reduxStore = createStore(reducers)
 
-
+// @ts-ignore
+window.reduxStore = reduxStore;

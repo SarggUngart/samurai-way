@@ -8,18 +8,14 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Friends from "./components/Friends/Friends";
-import {ReduxStateType} from "./redux/redux-store";
+import {reduxStore} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
-type statePropsType = {
-  state: ReduxStateType
-}
+const App: React.FC = () => {
 
-const App: React.FC<statePropsType> = (props) => {
-
-  debugger
-  const {state} = props
+  const profileState = reduxStore.getState().profileReducer
+  const friendsState = reduxStore.getState().friendsReducer
 
   return (
     <BrowserRouter>
@@ -30,7 +26,7 @@ const App: React.FC<statePropsType> = (props) => {
           <Route path='/profile' render={(props) =>
             <Profile
               {...props}
-              state={state}
+              state={profileState}
             />}/>
           <Route path='/dialogs' render={() =>
             <DialogsContainer/>}
@@ -38,7 +34,7 @@ const App: React.FC<statePropsType> = (props) => {
           <Route path='/friends' render={(props) =>
             <Friends
               {...props}
-              state={state}/>}/>
+              state={friendsState}/>}/>
           <Route path='/news' render={() => <News/>}/>
           <Route path='/music' component={Music}/>
           <Route path='/settings' component={Settings}/>

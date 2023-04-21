@@ -3,15 +3,15 @@ import style from './Profile.module.css'
 import bg from "../../assets/img/bg_main.jpeg";
 import UserInfo from "./UnserInfo/UserInfo";
 import Posts from "./Posts/Posts";
-import {ReduxStateType} from "../../redux/redux-store";
+import {ProfilePageType} from "../../redux/state";
 
 type ProfilePropsType = {
-  state: ReduxStateType
+  state: ProfilePageType
 }
 
 const Profile: React.FC<ProfilePropsType> = (props) => {
   const {state} = props
-  const profileState = state.profileReducer.profilePostsData
+  const profileState = state.profilePostsData
 
   return (
     <>

@@ -1,43 +1,42 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import StoreContext from "../../redux/StoreContext";
+import {connect} from "react-redux";
+import {ReduxStateType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
+import {DialogsPageType} from "../../redux/state";
 import {addMessageAC, updateMessageAC} from "../../redux/dialogs-reducer";
 
 
-export const DialogsContainer: React.FC = () => {
+type mapStateToPropsType = {
+  dialogsPage: DialogsPageType
+}
 
-  return (
-    <StoreContext.Consumer>{
-      (store) => {
+type mapDispatchToPropsType = {
+  addDialog: () => void
+  updateMessageText: (newMessageText:string) => void
+}
 
-        const stateForDialogs = store.getState().dialogsReducer.dialogsData
-        const stateForMessages = store.getState().dialogsReducer.messagesData
+export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-        const onClickAddMessageHandler = () => {
-          if (store.getState().dialogsReducer.newMessageText.length > 0)
-            store.dispatch(addMessageAC())
-        }
-
-        const onChangeNewMessageHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-          store.dispatch(updateMessageAC((e.currentTarget.value)))
-        }
-
-        return (
-          <Dialogs addMessage={onClickAddMessageHandler} updateMessageText={onChangeNewMessageHandler}
-                   stateForDialogs={stateForDialogs}
-                   stateForMessages={stateForMessages}
-                   message={store.getState().dialogsReducer.newMessageText}
-          />
-        )
-      }
+const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
+  return {
+    dialogsPage: state.dialogsReducer
+  }
 
 
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+  return {
+    addDialog: () => {
+      dispatch(addMessageAC())
+    },
+    updateMessageText: (newMessageText:string) => {
+      dispatch(updateMessageAC(newMessageText))
     }
+  }
+}
 
 
-    </StoreContext.Consumer>
-
-
-  );
-};
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 

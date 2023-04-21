@@ -1,16 +1,16 @@
 import React from 'react';
 import style from './Friends.module.css'
-import {ReduxStateType} from "../../redux/redux-store";
+import {FriendsPageType} from "../../redux/state";
 
 type FriendsDataPropsType = {
-  state: ReduxStateType
+  state: FriendsPageType
 }
 
 const Friends: React.FC<FriendsDataPropsType> = (props) => {
   const {state} = props
 
   return (<React.Fragment>
-      {state.friendsReducer.friendsData.map(f => {
+      {state.friendsData.map(f => {
         return (
           <div key={f.id} className={style.wrapper}>
             <div className={style.friendItem}>
