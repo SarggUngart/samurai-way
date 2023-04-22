@@ -1,11 +1,18 @@
 .wrapper{
-    padding: 20px 0 20px 40px;
+    padding: 20px 0 40px 40px;
 }
 
-.friendItem{
+.userItem{
+    margin-bottom: 15px;
     display: flex;
     gap: 25px;
     align-items: center;
+}
+
+.userInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 5px
 }
 
 .img{

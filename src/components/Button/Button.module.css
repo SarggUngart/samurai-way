@@ -1,4 +1,5 @@
 .btn{
+    min-width: 160px;
     align-self: end;
     background: #61dafb;
     border: 0;

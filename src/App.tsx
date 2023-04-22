@@ -7,15 +7,11 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import Users from "./components/Users/Users";
-import {reduxStore} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 
 const App: React.FC = () => {
-
-  const profileState = reduxStore.getState().profileReducer
-  const friendsState = reduxStore.getState().usersReducer
 
   return (
     <BrowserRouter>
@@ -23,19 +19,15 @@ const App: React.FC = () => {
         <Header/>
         <Nav/>
         <main className={'main'}>
-          <Route path='/profile' render={(props) =>
-            <Profile
-              {...props}
-              state={profileState}
-            />}/>
+          <Route path='/profile' render={() =>
+            <Profile/>}/>
           <Route path='/dialogs' render={() =>
             <DialogsContainer/>}
           />
-          <Route path='/friends' render={(props) =>
-            <Users
-              {...props}
-              state={friendsState}/>}/>
-          <Route path='/news' render={() => <News/>}/>
+          <Route path='/users' render={() =>
+            <UsersContainer />}/>
+          <Route path='/news' render={() =>
+            <News/>}/>
           <Route path='/music' component={Music}/>
           <Route path='/settings' component={Settings}/>
         </main>

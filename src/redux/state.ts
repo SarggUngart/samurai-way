@@ -1,5 +1,6 @@
 import {addPostAC, updatePostAC} from "./profile-reducer";
 import {addMessageAC, updateMessageAC} from "./dialogs-reducer";
+import {followAC} from "./friends-reducer";
 
 export type StateType = {
   profilePage: ProfilePageType,
@@ -26,8 +27,14 @@ export type PostsDataType = {
 export type UsersDataType = {
   id: number
   name: string
+  follow: boolean
   age: number
   avatar: string
+  status: string
+  location: {
+    city: string
+    country: string
+  }
 }
 
 export type ProfilePageType = {
@@ -42,7 +49,7 @@ export type DialogsPageType = {
 }
 
 export type UsersPageType = {
-  friendsData: UsersDataType[]
+  usersData: UsersDataType[]
 }
 
 
@@ -51,6 +58,7 @@ export type ActionsType =
   | ReturnType<typeof updatePostAC>
   | ReturnType<typeof addMessageAC>
   | ReturnType<typeof updateMessageAC>
+  | ReturnType<typeof followAC>
 
 export type StoreType = {
   _state: StateType

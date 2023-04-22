@@ -11,7 +11,10 @@ const Button: React.FC<BtnPropsType> = (props) => {
 
 
   return (
-    <button onClick={callBack} className={style.btn}>{name}</button>
+    <div>
+      <button onClick={callBack} className={style.btn}>{name}</button>
+    </div>
+
   );
 };
 

@@ -25,7 +25,7 @@ export const profileReducer = (state: ProfilePageType = initialProfileState, act
         postText: state.newPostText,
         likesCount: 0,
       }
-      return {...state, profilePostsData: [...state.profilePostsData, newPost], newPostText: ''}
+      return {...state, profilePostsData: [newPost, ...state.profilePostsData], newPostText: ''}
     }
 
     case 'UPDATE-NEW-POST': {
