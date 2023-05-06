@@ -1,4 +1,4 @@
-import {ActionsType, PostsDataType, ProfilePageType} from "./state";
+import {ActionsType, PostsDataType, ProfilePageType} from "./stateTypes";
 
 
 const initialProfileState: ProfilePageType = {
@@ -12,7 +12,7 @@ const initialProfileState: ProfilePageType = {
       postText: 'Architecto cupiditate delectus, deleniti, facilis, minima praesentium recusandae similique tempora tenetur totam voluptate!',
       likesCount: 2
     }
-  ],
+  ] as PostsDataType[],
   newPostText: ""
 }
 

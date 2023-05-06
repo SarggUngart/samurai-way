@@ -3,7 +3,7 @@ import newPostForm from "./NewPostForm";
 import {connect} from "react-redux";
 import {ReduxStateType} from "../../../../redux/redux-store";
 import {Dispatch} from "redux";
-import {PostsDataType} from "../../../../redux/state";
+import {PostsDataType} from "../../../../redux/stateTypes";
 import {addPostAC, updatePostAC} from "../../../../redux/profile-reducer";
 
 

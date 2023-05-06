@@ -1,16 +1,17 @@
 import {connect} from "react-redux";
 import Users from "./Users";
-import {UsersPageType} from "../../redux/state";
+import {UsersDataType, UsersPageType} from "../../redux/stateTypes";
 import {ReduxStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
-import {followAC} from "../../redux/friends-reducer";
+import {followAC, setUsersAC} from "../../redux/users-reducer";
 
 type mapStateToPropsType = {
   usersPage: UsersPageType
 }
 
 type mapDispatchToPropsType = {
-  follow: (id: number, follow: boolean) => void
+  followed: (id: number, followed: boolean) => void
+  setUsers: (users: UsersDataType[]) => void
 }
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -23,11 +24,13 @@ const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
   return {
-    follow: (id, follow) => {
-      dispatch(followAC(id, follow))
+    followed: (id, followed) => {
+      dispatch(followAC(id, followed))
+    },
+    setUsers: (users: UsersDataType[]) => {
+      dispatch(setUsersAC(users))
     }
   }
 }
-
 
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)

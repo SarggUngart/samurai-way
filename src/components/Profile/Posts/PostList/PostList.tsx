@@ -11,22 +11,25 @@ const PostList: React.FC<PostListPropsType> = (props) => {
   return (<>
       {
         postListData.map(posts => {
+
           return (
-            <div className={style.posts}>
-              <div className={style.post}>
-                <img className={style.avaPost} src={avaPost} alt="ava_post"/>
-                <div className={style.postWrapper}>
-                  <div className={style.text}>
-                    {posts.postText}
-                  </div>
-                  <div className={style.likeWrapper}>
-                    <img className={style.heart} src={like} alt=""/><span className={style.like}>
+            <React.Fragment key={posts.id}>
+              <div className={style.posts}>
+                <div className={style.post}>
+                  <img className={style.avaPost} src={avaPost} alt="ava_post"/>
+                  <div className={style.postWrapper}>
+                    <div className={style.text}>
+                      {posts.postText}
+                    </div>
+                    <div className={style.likeWrapper}>
+                      <img className={style.heart} src={like} alt=""/><span className={style.like}>
             {posts.likesCount}
           </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </React.Fragment>
           )
         })
       }

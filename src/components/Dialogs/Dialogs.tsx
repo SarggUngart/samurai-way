@@ -8,6 +8,17 @@ import {DialogsPropsType} from "./DialogsContainer";
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
+
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null)
+
+  function adjustHeight() {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      const height = Math.min(textareaRef.current.scrollHeight, 200);
+      textareaRef.current.style.height = `${height}px`;
+    }
+  }
+
   const {
     addMessage,
     updateMessageText,
@@ -15,12 +26,15 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
   } = props
 
   const onClickNewMessage = () => {
-    if(!dialogsPage.newMessageText) return
+    if (!dialogsPage.newMessageText) return
     addMessage()
+    if (textareaRef.current)
+      textareaRef.current.style.height = `auto`
   }
 
   const onChangeMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateMessageText(e.currentTarget.value)
+    adjustHeight();
   }
 
   return (
@@ -36,8 +50,12 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
           <Messages key={m.id} id={m.id} message={m.message}/>
         )}
         <div className={style.newMessage}>
-          <textarea value={dialogsPage.newMessageText} onChange={onChangeMessage}
-                    className={style.text}/>
+          <textarea
+            ref={textareaRef}
+            value={dialogsPage.newMessageText}
+            onChange={onChangeMessage}
+            className={style.text}
+            />
           <Button name={'add'} callBack={onClickNewMessage}/>
         </div>
       </div>

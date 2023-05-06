@@ -1,7 +1,7 @@
 import {combineReducers, createStore} from "redux";
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
-import {usersReducer} from "./friends-reducer";
+import {usersReducer} from "./users-reducer";
 
 
 export type RootState = typeof reducers;

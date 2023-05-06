@@ -1,4 +1,4 @@
-import {ActionsType, DialogsPageType, MessagesDataType} from "./state";
+import {ActionsType, DialogsDataType, DialogsPageType, MessagesDataType} from "./stateTypes";
 
 const dialogsReducerInitialState: DialogsPageType = {
   dialogsData: [
@@ -7,12 +7,12 @@ const dialogsReducerInitialState: DialogsPageType = {
     {id: 3, name: 'Serj'},
     {id: 4, name: 'Marina'},
     {id: 5, name: 'Sveta'}
-  ],
+  ] as DialogsDataType[],
   messagesData: [
     {id: 1, message: 'hello'},
     {id: 2, message: 'how are you'},
     {id: 3, message: 'i get an offer'},
-  ],
+  ] as MessagesDataType[],
   newMessageText: ""
 }
 

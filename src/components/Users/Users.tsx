@@ -1,39 +1,45 @@
 import React from 'react';
 import style from './Users.module.css'
-
 import Button from "../Button/Button";
 import {UsersPropsType} from "./UsersContainer";
+import {UsersPageType} from "../../redux/stateTypes";
+import axios from "axios";
 
 
-const Users: React.FC<UsersPropsType> = (props) => {
+class Users extends React.Component<UsersPropsType, UsersPageType> {
 
 
-  return (<React.Fragment>
-      {props.usersPage.usersData.map(user => {
-        const onClickFollowUser = () => {
-          props.follow(user.id, user.follow)
-        }
-        const ifFollow = !user.follow ? 'follow' : 'unfollow'
+  componentDidMount() {
+    axios.get("https://social-network.samuraijs.com/api/1.0/users")
+      .then(res => this.props.setUsers(res.data.items))
+  }
 
-        return (
-          <div key={user.id} className={style.wrapper}>
-            <div className={style.userItem}>
-              <img className={style.img} src={user.avatar} alt="friend_avatar"/>
-              <div className={style.userInfo}>
-                <div className={style.name}>{user.name}</div>
-                <div className={style.age}><b>age:</b> {user.age}</div>
-                <div className={style.status}><b>status:</b> {user.status}</div>
-                <div className={style.location}><b>location:</b> <span>{user.location.city}</span>
-                  <span> {user.location.country}</span>
+
+  render() {
+    return (<React.Fragment>
+        {this.props.usersPage.usersData.map(user => {
+          const onClickFollowUser = () => {
+            this.props.followed(user.id, user.followed)
+          }
+          const isFollow = !user.followed ? 'follow' : 'unfollow'
+
+          return (
+            <div key={user.id} className={style.wrapper}>
+              <div className={style.userItem}>
+                <img className={style.img} src={user.photos.large} alt="friend_avatar"/>
+                <div className={style.userInfo}>
+                  <div className={style.name}>{user.name}</div>
                 </div>
               </div>
+              <Button name={isFollow} callBack={onClickFollowUser}/>
             </div>
-            <Button name={ifFollow} callBack={onClickFollowUser}/>
-          </div>
-        )
-      })}
-    </React.Fragment>
-  );
-};
+          )
+        })}
+      </React.Fragment>
+
+    )
+  }
+}
 
 export default Users;
+
