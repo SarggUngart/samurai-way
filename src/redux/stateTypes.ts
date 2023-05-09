@@ -1,6 +1,6 @@
 import {addPostAC, updatePostAC} from "./profile-reducer";
 import {addMessageAC, updateMessageAC} from "./dialogs-reducer";
-import {followAC, setUsersAC} from "./users-reducer";
+import {followAC, setCurrentPageAC, setTotalUserCountAC, setUsersAC} from "./users-reducer";
 
 export type StateType = {
   profilePage: ProfilePageType,
@@ -29,8 +29,8 @@ export type UsersDataType = {
   id: number
   uniqueUrlName: null
   photos: {
-    small: undefined | string,
-    large: undefined | string
+    small: string
+    large: string
   },
   status: null,
   followed: boolean
@@ -50,6 +50,9 @@ export type DialogsPageType = {
 
 export type UsersPageType = {
   usersData: UsersDataType[]
+  pageSize: number
+  totalCount: number
+  currentPage: number
 }
 
 export type ActionsType =
@@ -59,5 +62,7 @@ export type ActionsType =
   | ReturnType<typeof updateMessageAC>
   | ReturnType<typeof followAC>
   | ReturnType<typeof setUsersAC>
+  | ReturnType<typeof setCurrentPageAC>
+  | ReturnType<typeof setTotalUserCountAC>
 
 

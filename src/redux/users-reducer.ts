@@ -1,7 +1,10 @@
 import {ActionsType, UsersDataType, UsersPageType} from "./stateTypes";
 
 const usersReducerInitialState: UsersPageType = {
-  usersData: [] as UsersDataType[]
+  usersData: [] as UsersDataType[],
+  pageSize: 10,
+  totalCount: 0,
+  currentPage: 1
 }
 
 
@@ -15,7 +18,13 @@ export const usersReducer = (state: UsersPageType = usersReducerInitialState, ac
       }
     }
     case "SET_USERS": {
-      return {...state, usersData: [...state.usersData, ...action.users]}
+      return {...state, usersData: action.users}
+    }
+    case "SET_CUR_PAGE" : {
+      return {...state, currentPage: action.currentPage}
+    }
+    case "SET_TOTAL_USER_COUNT": {
+      return {...state, totalCount: action.totalCount}
     }
   }
 
@@ -34,5 +43,19 @@ export const setUsersAC = (users: UsersDataType[]) => {
   return {
     type: 'SET_USERS',
     users
+  } as const
+}
+
+export const setCurrentPageAC = (currentPage: number) => {
+  return {
+    type: 'SET_CUR_PAGE',
+    currentPage
+  } as const
+}
+
+export const setTotalUserCountAC = (totalCount: number) => {
+  return {
+    type: 'SET_TOTAL_USER_COUNT',
+    totalCount
   } as const
 }

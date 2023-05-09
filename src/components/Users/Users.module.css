@@ -25,3 +25,20 @@
     font-weight: 500;
     margin-bottom: 5px;
 }
+
+.buttons{
+    margin: 20px 0 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 10px;
+}
+
+.buttons span:hover{
+    cursor: pointer;
+}
+
+.selected{
+    font-size: 20px;
+    font-weight: 600;
+}

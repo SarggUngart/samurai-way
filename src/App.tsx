@@ -27,7 +27,7 @@ const App: React.FC = () => {
           <Route path='/users' render={() =>
             <UsersContainer />}/>
           <Route path='/news' render={() =>
-            <News/>}/>
+            <News />}/>
           <Route path='/music' component={Music}/>
           <Route path='/settings' component={Settings}/>
         </main>
