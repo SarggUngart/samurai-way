@@ -10,6 +10,7 @@ type UsersClearPropsType = {
   pageSize: number
   followed: (id: number, followed: boolean) => void
   usersPage: UsersPageType
+
 }
 
 export const Users: React.FC<UsersClearPropsType> = (props) => {
@@ -19,6 +20,7 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
     totalCount,
     pageSize,
     usersPage,
+
   } = props
 
   let pagesCount = Math.ceil(totalCount / pageSize)
@@ -28,7 +30,8 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
     pages.push(i)
   }
 
-  return (<React.Fragment>
+  return (
+    <React.Fragment>
       <div className={style.buttons}>
         <Pagination
           count={pages.length}
@@ -40,7 +43,6 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
           variant="outlined" shape="rounded"
         />
       </div>
-
       {usersPage.usersData.map(user => {
         const onClickFollowUser = () => {
           followed(user.id, user.followed)

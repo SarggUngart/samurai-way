@@ -60,6 +60,8 @@ code {
 .main {
     grid-area: main;
     background: #FEF2E4;
+    display: flex;
+    flex-direction: column;
 }
 
 textarea {

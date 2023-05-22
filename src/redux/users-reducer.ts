@@ -4,7 +4,8 @@ const usersReducerInitialState: UsersPageType = {
   usersData: [] as UsersDataType[],
   pageSize: 10,
   totalCount: 0,
-  currentPage: 1
+  currentPage: 1,
+  isFetching: false
 }
 
 
@@ -25,6 +26,9 @@ export const usersReducer = (state: UsersPageType = usersReducerInitialState, ac
     }
     case "SET_TOTAL_USER_COUNT": {
       return {...state, totalCount: action.totalCount}
+    }
+    case "SET_FETCHING": {
+      return {...state, isFetching: action.isFetching}
     }
   }
 
@@ -57,5 +61,12 @@ export const setTotalUserCountAC = (totalCount: number) => {
   return {
     type: 'SET_TOTAL_USER_COUNT',
     totalCount
+  } as const
+}
+
+export const setFetchingAC = (isFetching: boolean) => {
+  return {
+    type: 'SET_FETCHING',
+    isFetching
   } as const
 }

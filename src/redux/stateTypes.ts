@@ -1,6 +1,6 @@
 import {addPostAC, updatePostAC} from "./profile-reducer";
 import {addMessageAC, updateMessageAC} from "./dialogs-reducer";
-import {followAC, setCurrentPageAC, setTotalUserCountAC, setUsersAC} from "./users-reducer";
+import {followAC, setCurrentPageAC, setFetchingAC, setTotalUserCountAC, setUsersAC} from "./users-reducer";
 
 export type StateType = {
   profilePage: ProfilePageType,
@@ -53,6 +53,7 @@ export type UsersPageType = {
   pageSize: number
   totalCount: number
   currentPage: number
+  isFetching: boolean
 }
 
 export type ActionsType =
@@ -64,5 +65,6 @@ export type ActionsType =
   | ReturnType<typeof setUsersAC>
   | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof setTotalUserCountAC>
+  | ReturnType<typeof setFetchingAC>
 
 

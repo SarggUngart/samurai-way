@@ -2,18 +2,21 @@ import {connect} from "react-redux";
 import {UsersDataType, UsersPageType} from "../../redux/stateTypes";
 import {ReduxStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
-import {followAC, setCurrentPageAC, setTotalUserCountAC, setUsersAC} from "../../redux/users-reducer";
+import {followAC, setCurrentPageAC, setFetchingAC, setTotalUserCountAC, setUsersAC} from "../../redux/users-reducer";
 import React from "react";
 import axios from "axios";
 import {Users} from "./Users";
+import {CircularProgress} from "@mui/material";
 
 
 class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
   componentDidMount() {
+    this.props.setIsFetching(false)
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
       .then(res => {
         this.props.setUsers(res.data.items)
-        this.props.setTotalUserCountAC(res.data.totalCount)
+        this.props.setTotalUserCount(res.data.totalCount)
+        this.props.setIsFetching(true)
       })
   }
 
@@ -24,13 +27,23 @@ class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
   }
 
   render() {
-    return (<Users
-      onClickSetCurrentPage={this.onClickSetCurrentPage}
-      totalCount={this.props.totalCount}
-      pageSize={this.props.pageSize}
-      followed={this.props.followed}
-      usersPage={this.props.usersPage}
-    />)
+    return (
+      <React.Fragment>
+        {!this.props.isFetching
+          ?
+          <CircularProgress
+            sx={{margin: 'auto'}}
+            color="secondary"/>
+          :
+          <Users
+            onClickSetCurrentPage={this.onClickSetCurrentPage}
+            totalCount={this.props.totalCount}
+            pageSize={this.props.pageSize}
+            followed={this.props.followed}
+            usersPage={this.props.usersPage}
+          />}
+      </React.Fragment>
+    )
   }
 }
 
@@ -39,13 +52,15 @@ type mapStateToPropsType = {
   pageSize: number
   totalCount: number
   currentPage: number
+  isFetching: boolean
 }
 
 type mapDispatchToPropsType = {
   followed: (id: number, followed: boolean) => void
   setUsers: (users: UsersDataType[]) => void
   setCurrentPage: (currentPage: number) => void
-  setTotalUserCountAC: (totalCount: number) => void
+  setTotalUserCount: (totalCount: number) => void
+  setIsFetching: (isFetching: boolean) => void
 }
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -55,7 +70,8 @@ const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
     usersPage: state.usersReducer,
     pageSize: state.usersReducer.pageSize,
     totalCount: state.usersReducer.totalCount,
-    currentPage: state.usersReducer.currentPage
+    currentPage: state.usersReducer.currentPage,
+    isFetching: state.usersReducer.isFetching
   }
 }
 
@@ -70,8 +86,11 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     setCurrentPage: (currentPage: number) => {
       dispatch(setCurrentPageAC(currentPage))
     },
-    setTotalUserCountAC: (totalCount: number) => {
+    setTotalUserCount: (totalCount: number) => {
       dispatch(setTotalUserCountAC(totalCount))
+    },
+    setIsFetching: (isFetching: boolean) => {
+      dispatch(setFetchingAC(isFetching))
     }
   }
 }
