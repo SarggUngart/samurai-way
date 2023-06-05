@@ -3,6 +3,8 @@ import style from './Users.module.css'
 import Button from "../Button/Button";
 import Pagination from '@mui/material/Pagination';
 import {UsersPageType} from "../../redux/stateTypes";
+import {NavLink} from "react-router-dom";
+import emptyAvatar from "../../assets/img/avatar_empty.jpeg";
 
 type UsersClearPropsType = {
   onClickSetCurrentPage: (page: number) => void
@@ -10,7 +12,6 @@ type UsersClearPropsType = {
   pageSize: number
   followed: (id: number, followed: boolean) => void
   usersPage: UsersPageType
-
 }
 
 export const Users: React.FC<UsersClearPropsType> = (props) => {
@@ -52,9 +53,11 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
           <React.Fragment key={user.id}>
             <div className={style.wrapper}>
               <div className={style.userItem}>
-                <img className={style.img} src={user.photos.large} alt="friend_avatar"/>
+                <img className={style.img} src={user.photos.large || emptyAvatar}/>
                 <div className={style.userInfo}>
-                  <div className={style.name}>{user.name}</div>
+                  <NavLink className={style.link} to={'/profile'}>
+                    <div className={style.name}>{user.name}</div>
+                  </NavLink>
                 </div>
               </div>
               <Button name={isFollow} callBack={onClickFollowUser}/>

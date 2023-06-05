@@ -1,4 +1,4 @@
-import {addPostAC, updatePostAC} from "./profile-reducer";
+import {addPostAC, setUserProfileAC, updatePostAC} from "./profile-reducer";
 import {addMessageAC, updateMessageAC} from "./dialogs-reducer";
 import {followAC, setCurrentPageAC, setFetchingAC, setTotalUserCountAC, setUsersAC} from "./users-reducer";
 
@@ -24,6 +24,28 @@ export type PostsDataType = {
   likesCount: number
 }
 
+export type ProfileType = {
+  "aboutMe": string,
+  "contacts": {
+    "facebook": string,
+    "website": null,
+    "vk": string,
+    "twitter": string,
+    "instagram": string,
+    "youtube": null,
+    "github": string,
+    "mainLink": null
+  },
+  "lookingForAJob": boolean,
+  "lookingForAJobDescription": string,
+  "fullName": string,
+  "userId": null
+  "photos": {
+    "small": string,
+    "large": string
+  }
+}
+
 export type UsersDataType = {
   name: string
   id: number
@@ -38,8 +60,9 @@ export type UsersDataType = {
 
 
 export type ProfilePageType = {
-  profilePostsData: PostsDataType[],
+  profilePostsData: PostsDataType[]
   newPostText: string
+  profile:ProfileType
 }
 
 export type DialogsPageType = {
@@ -66,5 +89,7 @@ export type ActionsType =
   | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof setTotalUserCountAC>
   | ReturnType<typeof setFetchingAC>
+  | ReturnType<typeof setUserProfileAC>
+
 
 

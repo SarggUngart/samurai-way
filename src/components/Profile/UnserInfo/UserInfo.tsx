@@ -1,16 +1,17 @@
 import React from 'react';
-import avatar from '../../../assets/img/avatar.jpeg'
 import style from './UserInfo.module.css'
+import {ProfilePropsType} from "../ProfileContainer";
 
 
-const UserInfo = () => {
+const UserInfo: React.FC<ProfilePropsType> = (props) => {
+  const {profile} = props
+
   return (
     <div className={style.user}>
-      <img className={style.avatar} src={avatar} alt="avatar"/>
+      <img className={style.avatar} src={profile.photos.large} alt="avatar"/>
       <div className={style.userInfo}>
-        <div className={style.userItem}>Name</div>
-        <div className={style.userItem}>Birthday</div>
-        <div className={style.userItem}>City</div>
+        <div className={style.userItem}>{profile.fullName}</div>
+        <div className={style.userItem}>{profile.aboutMe}</div>
       </div>
     </div>
   );

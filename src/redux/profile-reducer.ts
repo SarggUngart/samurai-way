@@ -1,7 +1,8 @@
-import {ActionsType, PostsDataType, ProfilePageType} from "./stateTypes";
+import {ActionsType, PostsDataType, ProfilePageType, ProfileType} from "./stateTypes";
 
 
 const initialProfileState: ProfilePageType = {
+  profile: {} as ProfileType,
   profilePostsData: [
     {
       id: 1,
@@ -31,6 +32,10 @@ export const profileReducer = (state: ProfilePageType = initialProfileState, act
     case 'UPDATE-NEW-POST': {
       return {...state, newPostText: action.newPostText}
     }
+
+    case "SET-USER-PROFILE": {
+      return {...state, profile: action.profile}
+    }
     default:
       return state
   }
@@ -46,5 +51,12 @@ export const updatePostAC = (newPostText: string) => {
   return {
     type: 'UPDATE-NEW-POST',
     newPostText
+  } as const
+}
+
+export const setUserProfileAC = (profile: ProfileType) => {
+  return {
+    type: 'SET-USER-PROFILE',
+    profile
   } as const
 }

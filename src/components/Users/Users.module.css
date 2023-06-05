@@ -16,6 +16,8 @@
 }
 
 .img{
+    display: block;
+    height: 80px;
     width:80px;
     border-radius: 50%;
 }
@@ -41,4 +43,8 @@
 .selected{
     font-size: 20px;
     font-weight: 600;
+}
+
+.link{
+    color:black;
 }

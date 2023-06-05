@@ -20,20 +20,20 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
   }
 
   const {
-    addMessage,
-    updateMessageText,
+    addMessageAC,
+    updateMessageAC,
     dialogsPage,
   } = props
 
   const onClickNewMessage = () => {
     if (!dialogsPage.newMessageText) return
-    addMessage()
+    addMessageAC()
     if (textareaRef.current)
       textareaRef.current.style.height = `auto`
   }
 
   const onChangeMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    updateMessageText(e.currentTarget.value)
+    updateMessageAC(e.currentTarget.value)
     adjustHeight();
   }
 
@@ -55,7 +55,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
             value={dialogsPage.newMessageText}
             onChange={onChangeMessage}
             className={style.text}
-            />
+          />
           <Button name={'add'} callBack={onClickNewMessage}/>
         </div>
       </div>
