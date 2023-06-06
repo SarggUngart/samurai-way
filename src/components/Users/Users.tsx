@@ -12,6 +12,7 @@ type UsersClearPropsType = {
   pageSize: number
   followed: (id: number, followed: boolean) => void
   usersPage: UsersPageType
+  currentPage: number
 }
 
 export const Users: React.FC<UsersClearPropsType> = (props) => {
@@ -21,6 +22,7 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
     totalCount,
     pageSize,
     usersPage,
+    currentPage
 
   } = props
 
@@ -41,7 +43,9 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
           }}
           size="small"
           color="secondary"
-          variant="outlined" shape="rounded"
+          variant="outlined"
+          shape="rounded"
+          page={currentPage}
         />
       </div>
       {usersPage.usersData.map(user => {
@@ -55,7 +59,7 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
               <div className={style.userItem}>
                 <img className={style.img} src={user.photos.large || emptyAvatar}/>
                 <div className={style.userInfo}>
-                  <NavLink className={style.link} to={'/profile'}>
+                  <NavLink className={style.link} to={`/profile/${user.id}`}>
                     <div className={style.name}>{user.name}</div>
                   </NavLink>
                 </div>

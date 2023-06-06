@@ -40,6 +40,7 @@ class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
             pageSize={this.props.pageSize}
             followed={this.props.followAC}
             usersPage={this.props.usersPage}
+            currentPage={this.props.currentPage}
           />}
       </React.Fragment>
     )

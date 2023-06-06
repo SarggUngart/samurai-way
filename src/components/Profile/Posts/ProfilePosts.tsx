@@ -3,7 +3,7 @@ import {NewPostFormContainer} from "./NewPostForm/NewPostFormContainer";
 import {PostsListContainer} from "./PostList/PostsListContainer";
 
 
-const Posts: React.FC = () => {
+const ProfilePosts: React.FC = () => {
  return (
     <div>
       <NewPostFormContainer/>
@@ -12,4 +12,4 @@ const Posts: React.FC = () => {
   );
 };
 
-export default Posts;
+export default ProfilePosts;

@@ -1,6 +1,7 @@
 import {addPostAC, setUserProfileAC, updatePostAC} from "./profile-reducer";
 import {addMessageAC, updateMessageAC} from "./dialogs-reducer";
 import {followAC, setCurrentPageAC, setFetchingAC, setTotalUserCountAC, setUsersAC} from "./users-reducer";
+import {setUserDataAC} from "./auth-reducer";
 
 export type StateType = {
   profilePage: ProfilePageType,
@@ -25,24 +26,24 @@ export type PostsDataType = {
 }
 
 export type ProfileType = {
-  "aboutMe": string,
-  "contacts": {
-    "facebook": string,
-    "website": null,
-    "vk": string,
-    "twitter": string,
-    "instagram": string,
-    "youtube": null,
-    "github": string,
-    "mainLink": null
+  aboutMe: string
+  contacts: {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
   },
-  "lookingForAJob": boolean,
-  "lookingForAJobDescription": string,
-  "fullName": string,
-  "userId": null
-  "photos": {
-    "small": string,
-    "large": string
+  lookingForAJob: boolean,
+  lookingForAJobDescription: string,
+  fullName: string,
+  userId: string
+  photos: {
+    small: string
+    large: string
   }
 }
 
@@ -62,7 +63,7 @@ export type UsersDataType = {
 export type ProfilePageType = {
   profilePostsData: PostsDataType[]
   newPostText: string
-  profile:ProfileType
+  profile: ProfileType
 }
 
 export type DialogsPageType = {
@@ -79,6 +80,13 @@ export type UsersPageType = {
   isFetching: boolean
 }
 
+export type AuthUserType = {
+  id: number | null
+  email: string | null
+  login: string | null
+  isAuth: boolean
+}
+
 export type ActionsType =
   ReturnType<typeof addPostAC>
   | ReturnType<typeof updatePostAC>
@@ -90,6 +98,6 @@ export type ActionsType =
   | ReturnType<typeof setTotalUserCountAC>
   | ReturnType<typeof setFetchingAC>
   | ReturnType<typeof setUserProfileAC>
-
+  | ReturnType<typeof setUserDataAC>
 
 
