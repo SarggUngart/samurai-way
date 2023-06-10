@@ -5,12 +5,14 @@ import Pagination from '@mui/material/Pagination';
 import {UsersPageType} from "../../redux/stateTypes";
 import {NavLink} from "react-router-dom";
 import emptyAvatar from "../../assets/img/avatar_empty.jpeg";
+import axios from "axios";
 
 type UsersClearPropsType = {
   onClickSetCurrentPage: (page: number) => void
   totalCount: number
   pageSize: number
-  followed: (id: number, followed: boolean) => void
+  followAC: (id: number, followed: boolean) => void
+  unFollowAC: (id: number, followed: boolean) => void
   usersPage: UsersPageType
   currentPage: number
 }
@@ -18,7 +20,8 @@ type UsersClearPropsType = {
 export const Users: React.FC<UsersClearPropsType> = (props) => {
   const {
     onClickSetCurrentPage,
-    followed,
+    followAC,
+    unFollowAC,
     totalCount,
     pageSize,
     usersPage,
@@ -50,9 +53,22 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
       </div>
       {usersPage.usersData.map(user => {
         const onClickFollowUser = () => {
-          followed(user.id, user.followed)
+          axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`, {}, {withCredentials: true})
+            .then(res => {
+              if (res.data.resultCode === 0) {
+                followAC(user.id, user.followed)
+              }
+            })
         }
-        const isFollow = !user.followed ? 'follow' : 'unfollow'
+
+        const onClickUnfollowUser = () => {
+          axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`, {withCredentials: true})
+            .then(() => {
+              unFollowAC(user.id, user.followed)
+            })
+        }
+
+        const isFollow = user.followed ? 'unfollow' : 'follow'
         return (
           <React.Fragment key={user.id}>
             <div className={style.wrapper}>
@@ -64,7 +80,12 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
                   </NavLink>
                 </div>
               </div>
-              <Button name={isFollow} callBack={onClickFollowUser}/>
+              {user.followed
+                ?
+                <Button name={isFollow} callBack={onClickUnfollowUser}/>
+                :
+                <Button name={isFollow} callBack={onClickFollowUser}/>
+              }
             </div>
           </React.Fragment>
         )

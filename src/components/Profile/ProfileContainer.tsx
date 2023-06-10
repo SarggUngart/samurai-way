@@ -11,6 +11,7 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 class ProfileContainer extends React.Component<WithRouterProfileType, ProfilePageType> {
   componentDidMount() {
     let userId = this.props.match.params.userId
+    console.log(userId)
     if (!userId) {
       userId = '2'
     }

@@ -12,7 +12,13 @@ const usersReducerInitialState: UsersPageType = {
 export const usersReducer = (state: UsersPageType = usersReducerInitialState, action: ActionsType): UsersPageType => {
 
   switch (action.type) {
-    case "FOLLOW": {
+    case "FOLLOW" : {
+      return {
+        ...state,
+        usersData: state.usersData.map(u => u.id === action.id ? {...u, followed: action.followed} : u)
+      }
+    }
+    case "UNFOLLOW": {
       return {
         ...state,
         usersData: state.usersData.map(u => u.id === action.id ? {...u, followed: !action.followed} : u)
@@ -38,6 +44,14 @@ export const usersReducer = (state: UsersPageType = usersReducerInitialState, ac
 export const followAC = (id: number, followed: boolean) => {
   return {
     type: 'FOLLOW',
+    id,
+    followed:!followed
+  } as const
+}
+
+export const unFollowAC = (id: number, followed: boolean) => {
+  return {
+    type: 'UNFOLLOW',
     id,
     followed
   } as const
