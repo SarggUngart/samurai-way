@@ -5,7 +5,7 @@ import Pagination from '@mui/material/Pagination';
 import {UsersPageType} from "../../redux/stateTypes";
 import {NavLink} from "react-router-dom";
 import emptyAvatar from "../../assets/img/avatar_empty.jpeg";
-import axios from "axios";
+import {UsersAPI} from "../../api/api";
 
 type UsersClearPropsType = {
   onClickSetCurrentPage: (page: number) => void
@@ -52,20 +52,18 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
         />
       </div>
       {usersPage.usersData.map(user => {
+
         const onClickFollowUser = () => {
-          axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`, {}, {withCredentials: true})
-            .then(res => {
-              if (res.data.resultCode === 0) {
+          UsersAPI.followUser(user.id)
+            .then(data => {
+              if (data.resultCode === 0) {
                 followAC(user.id, user.followed)
               }
             })
         }
-
         const onClickUnfollowUser = () => {
-          axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`, {withCredentials: true})
-            .then(() => {
-              unFollowAC(user.id, user.followed)
-            })
+          UsersAPI.unFollowUser(user.id)
+            .then(() => unFollowAC(user.id, user.followed))
         }
 
         const isFollow = user.followed ? 'unfollow' : 'follow'
