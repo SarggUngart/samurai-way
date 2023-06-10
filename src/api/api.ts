@@ -30,4 +30,11 @@ export const ProfileAPI = {
   }
 }
 
+export const AuthAPI = {
+  getAuth(){
+    return axiosInstance(`/auth/me`)
+      .then(res => res.data)
+  }
+}
+
 

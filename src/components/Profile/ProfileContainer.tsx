@@ -11,7 +11,6 @@ import {ProfileAPI} from "../../api/api";
 class ProfileContainer extends React.Component<WithRouterProfileType, ProfilePageType> {
   componentDidMount() {
     let userId = this.props.match.params.userId
-    console.log(userId)
     if (!userId) {
       userId = '2'
     }
@@ -21,7 +20,6 @@ class ProfileContainer extends React.Component<WithRouterProfileType, ProfilePag
   }
 
   render() {
-
     return (
       <Profile {...this.props} profile={this.props.profile}/>
     )
