@@ -12,6 +12,9 @@ type UserInfoPropsType = {
 const ProfileInfo: React.FC<UserInfoPropsType> = (props) => {
   const {profile} = props
 
+
+
+
   if (!profile.photos) {
     return <CircularProgress
       sx={{margin: 'auto'}}

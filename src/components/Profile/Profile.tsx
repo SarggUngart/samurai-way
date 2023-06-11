@@ -8,7 +8,6 @@ import {ProfilePropsType} from "./ProfileContainer";
 
 const Profile: React.FC<ProfilePropsType> = (props) => {
 
-
   return (
     <>
       <img className={style.profileBg} src={bg} alt="main_bg"/>

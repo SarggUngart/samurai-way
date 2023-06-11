@@ -8,7 +8,6 @@ import {DialogsPropsType} from "./DialogsContainer";
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
 
   function adjustHeight() {
@@ -59,8 +58,6 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
           <Button name={'add'} callBack={onClickNewMessage}/>
         </div>
       </div>
-
-
     </div>
   );
 };

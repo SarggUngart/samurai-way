@@ -5,6 +5,7 @@ import {followUserTC, getUsersTC, unFollowUserTC} from "../../redux/users-reduce
 import React from "react";
 import {Users} from "./Users";
 import {CircularProgress} from "@mui/material";
+import {WithAuthRedirect} from "../../HOC/WithAuthRedirect";
 
 
 class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
@@ -16,7 +17,9 @@ class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
     this.props.getUsersTC(currentPage, this.props.pageSize)
   }
 
+
   render() {
+
     return (
       <React.Fragment>
         {this.props.isFetching
@@ -64,13 +67,15 @@ const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
     totalCount: state.usersReducer.totalCount,
     currentPage: state.usersReducer.currentPage,
     isFetching: state.usersReducer.isFetching,
-    followingProgress: state.usersReducer.isFollowingProgress
+    followingProgress: state.usersReducer.isFollowingProgress,
   }
 }
+
+const AuthRedirectComponent = WithAuthRedirect(UsersContainer)
 
 export default connect(mapStateToProps, {
     getUsersTC,
     followUserTC,
     unFollowUserTC
   }
-)(UsersContainer)
+)(AuthRedirectComponent)

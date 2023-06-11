@@ -6,17 +6,17 @@ import {authReducer} from "./auth-reducer";
 import thunk from "redux-thunk";
 
 
-export type RootState = typeof reducers;
+export type RootState = typeof reducer;
 export type ReduxStateType = ReturnType<RootState>
 
-const reducers = combineReducers({
+const reducer = combineReducers({
   profileReducer,
   dialogsReducer,
   usersReducer,
   authReducer
 })
 
-export const reduxStore = createStore(reducers, applyMiddleware(thunk))
+export const reduxStore = createStore(reducer, applyMiddleware(thunk))
 
 // @ts-ignore
 window.reduxStore = reduxStore;

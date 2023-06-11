@@ -16,21 +16,19 @@ export const UsersAPI = {
     return axiosInstance.post(`/follow/${userId}`, {})
       .then(res => res.data)
   },
-  unFollowUser(userId:number){
+  unFollowUser(userId: number) {
     return axiosInstance.delete(`/follow/${userId}`)
       .then(res => res.data)
   }
 }
-
 export const ProfileAPI = {
-  getProfile(userId:string){
+  getProfile(userId: string) {
     return axiosInstance.get(`/profile/${userId}`)
       .then(res => res.data)
   }
 }
-
 export const AuthAPI = {
-  getAuth(){
+  getAuth() {
     return axiosInstance(`/auth/me`)
       .then(res => res.data)
   }

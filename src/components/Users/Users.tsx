@@ -6,14 +6,15 @@ import {UsersPageType} from "../../redux/stateTypes";
 import {NavLink} from "react-router-dom";
 import emptyAvatar from "../../assets/img/avatar_empty.jpeg";
 
+
 type UsersClearPropsType = {
   onClickSetCurrentPage: (page: number) => void
   followUserTC: (userId: number, followed: boolean) => void
   unFollowUserTC: (userId: number, followed: boolean) => void
-  followingProgress: number | null
   totalCount: number
   pageSize: number
   usersPage: UsersPageType
+  followingProgress: number | null
   currentPage: number
 }
 
@@ -35,6 +36,7 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
+
 
   return (
     <React.Fragment>
@@ -63,7 +65,7 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
             <React.Fragment key={user.id}>
               <div className={style.wrapper}>
                 <div className={style.userItem}>
-                  <img className={style.img} src={user.photos.large || emptyAvatar}/>
+                  <img className={style.img} src={user.photos.large || emptyAvatar} alt={'photo'}/>
                   <div className={style.userInfo}>
                     <NavLink className={style.link} to={`/profile/${user.id}`}>
                       <div className={style.name}>{user.name}</div>
