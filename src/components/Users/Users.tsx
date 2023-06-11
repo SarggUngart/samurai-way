@@ -5,14 +5,11 @@ import Pagination from '@mui/material/Pagination';
 import {UsersPageType} from "../../redux/stateTypes";
 import {NavLink} from "react-router-dom";
 import emptyAvatar from "../../assets/img/avatar_empty.jpeg";
-import {UsersAPI} from "../../api/api";
 
 type UsersClearPropsType = {
   onClickSetCurrentPage: (page: number) => void
-  setFetchingAC: (isFetching: boolean) => void
-  followAC: (id: number, followed: boolean) => void
-  unFollowAC: (id: number, followed: boolean) => void
-  setFollowingProgressAC: (followingProgress: number | null) => void
+  followUserTC: (userId: number, followed: boolean) => void
+  unFollowUserTC: (userId: number, followed: boolean) => void
   followingProgress: number | null
   totalCount: number
   pageSize: number
@@ -23,14 +20,14 @@ type UsersClearPropsType = {
 export const Users: React.FC<UsersClearPropsType> = (props) => {
   const {
     onClickSetCurrentPage,
-    followAC,
-    unFollowAC,
+    followUserTC,
+    unFollowUserTC,
     totalCount,
     pageSize,
     usersPage,
     currentPage,
     followingProgress,
-    setFollowingProgressAC
+
   } = props
 
   let pagesCount = Math.ceil(totalCount / pageSize)
@@ -58,25 +55,11 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
       </div>
       {usersPage.usersData.map(user => {
           const onClickFollowUser = () => {
-            setFollowingProgressAC(user.id)
-            UsersAPI.followUser(user.id)
-              .then(data => {
-                if (data.resultCode === 0) {
-                  followAC(user.id, user.followed)
-                  setFollowingProgressAC(null)
-                }
-              })
+            followUserTC(user.id, user.followed)
           }
-
           const onClickUnfollowUser = () => {
-            setFollowingProgressAC(user.id)
-            UsersAPI.unFollowUser(user.id)
-              .then(() => {
-                unFollowAC(user.id, user.followed)
-                setFollowingProgressAC(null)
-              })
+            unFollowUserTC(user.id, user.followed)
           }
-
           const isFollow = user.followed ? 'unfollow' : 'follow'
           return (
             <React.Fragment key={user.id}>

@@ -1,16 +1,7 @@
 import {connect} from "react-redux";
-import {UsersDataType, UsersPageType} from "../../redux/stateTypes";
+import {UsersPageType} from "../../redux/stateTypes";
 import {ReduxStateType} from "../../redux/redux-store";
-import {
-  followAC,
-  getUsersTC,
-  setCurrentPageAC,
-  setFetchingAC,
-  setFollowingProgressAC,
-  setTotalUserCountAC,
-  setUsersAC,
-  unFollowAC
-} from "../../redux/users-reducer";
+import {followUserTC, getUsersTC, unFollowUserTC} from "../../redux/users-reducer";
 import React from "react";
 import {Users} from "./Users";
 import {CircularProgress} from "@mui/material";
@@ -36,15 +27,13 @@ class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
           :
           <Users
             onClickSetCurrentPage={this.onClickSetCurrentPage}
+            followUserTC={this.props.followUserTC}
+            unFollowUserTC={this.props.unFollowUserTC}
             totalCount={this.props.totalCount}
             pageSize={this.props.pageSize}
-            followAC={this.props.followAC}
-            unFollowAC={this.props.unFollowAC}
             usersPage={this.props.usersPage}
             currentPage={this.props.currentPage}
             followingProgress={this.props.followingProgress}
-            setFollowingProgressAC={this.props.setFollowingProgressAC}
-            setFetchingAC={this.props.setFetchingAC}
           />}
       </React.Fragment>
     )
@@ -61,14 +50,9 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-  followAC: (id: number, followed: boolean) => void
-  unFollowAC: (id: number, followed: boolean) => void
-  setUsersAC: (users: UsersDataType[]) => void
-  setCurrentPageAC: (currentPage: number) => void
-  setTotalUserCountAC: (totalCount: number) => void
-  setFollowingProgressAC: (followingProgress: number | null) => void
-  setFetchingAC: (isFetching: boolean) => void
   getUsersTC: (currentPage: number, pageSize: number) => void
+  followUserTC: (userId: number, followed: boolean) => void
+  unFollowUserTC: (userId: number, followed: boolean) => void
 }
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -85,13 +69,8 @@ const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
 }
 
 export default connect(mapStateToProps, {
-    followAC,
-    unFollowAC,
-    setUsersAC,
-    setCurrentPageAC,
-    setTotalUserCountAC,
-    setFetchingAC,
-    setFollowingProgressAC,
-    getUsersTC
+    getUsersTC,
+    followUserTC,
+    unFollowUserTC
   }
 )(UsersContainer)

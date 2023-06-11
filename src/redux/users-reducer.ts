@@ -111,4 +111,27 @@ export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: 
     })
 }
 
+export const followUserTC = (userId: number, followed: boolean) => {
+  return (dispatch: Dispatch) => {
+    dispatch(setFollowingProgressAC(userId))
+    UsersAPI.followUser(userId)
+      .then(data => {
+        if (data.resultCode === 0) {
+          dispatch(followAC(userId, followed))
+          dispatch(setFollowingProgressAC(null))
+        }
+      })
+  }
+}
+
+export const unFollowUserTC = (userId: number, followed: boolean) => (dispatch: Dispatch) => {
+  dispatch(setFollowingProgressAC(userId))
+  UsersAPI.unFollowUser(userId)
+    .then(() => {
+      dispatch(unFollowAC(userId, followed))
+      dispatch(setFollowingProgressAC(null))
+    })
+}
+
+
 
