@@ -1,4 +1,6 @@
 import {ActionsType, AuthUserType} from "./stateTypes";
+import {Dispatch} from "redux";
+import {AuthAPI} from "../api/api";
 
 const authReducerInitialState: AuthUserType = {
   id: null,
@@ -14,7 +16,7 @@ export const authReducer = (state: AuthUserType = authReducerInitialState, actio
       return {
         ...state,
         ...action.data,
-        isAuth:true
+        isAuth: true
       }
     }
   }
@@ -29,3 +31,16 @@ export const setUserDataAC = (data: AuthUserType) => {
     data
   } as const
 }
+
+export const authTC = () => (dispatch: Dispatch) => {
+  AuthAPI.getAuth()
+    .then(data => {
+      if (data.resultCode === 0) {
+        dispatch(setUserDataAC(data.data))
+      }
+    })
+}
+
+
+
+

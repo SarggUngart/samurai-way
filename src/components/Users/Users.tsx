@@ -27,7 +27,6 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
     usersPage,
     currentPage,
     followingProgress,
-
   } = props
 
   let pagesCount = Math.ceil(totalCount / pageSize)
@@ -36,7 +35,6 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
-
 
   return (
     <React.Fragment>
