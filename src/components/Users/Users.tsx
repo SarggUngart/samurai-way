@@ -9,10 +9,13 @@ import {UsersAPI} from "../../api/api";
 
 type UsersClearPropsType = {
   onClickSetCurrentPage: (page: number) => void
-  totalCount: number
-  pageSize: number
+  setFetchingAC: (isFetching: boolean) => void
   followAC: (id: number, followed: boolean) => void
   unFollowAC: (id: number, followed: boolean) => void
+  setFollowingProgressAC: (followingProgress: number | null) => void
+  followingProgress: number | null
+  totalCount: number
+  pageSize: number
   usersPage: UsersPageType
   currentPage: number
 }
@@ -25,8 +28,9 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
     totalCount,
     pageSize,
     usersPage,
-    currentPage
-
+    currentPage,
+    followingProgress,
+    setFollowingProgressAC
   } = props
 
   let pagesCount = Math.ceil(totalCount / pageSize)
@@ -35,6 +39,7 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
+
 
   return (
     <React.Fragment>
@@ -52,42 +57,51 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
         />
       </div>
       {usersPage.usersData.map(user => {
+          const onClickFollowUser = () => {
+            setFollowingProgressAC(user.id)
+            UsersAPI.followUser(user.id)
+              .then(data => {
+                if (data.resultCode === 0) {
+                  followAC(user.id, user.followed)
+                  setFollowingProgressAC(null)
+                }
+              })
+          }
 
-        const onClickFollowUser = () => {
-          UsersAPI.followUser(user.id)
-            .then(data => {
-              if (data.resultCode === 0) {
-                followAC(user.id, user.followed)
-              }
-            })
-        }
-        const onClickUnfollowUser = () => {
-          UsersAPI.unFollowUser(user.id)
-            .then(() => unFollowAC(user.id, user.followed))
-        }
+          const onClickUnfollowUser = () => {
+            setFollowingProgressAC(user.id)
+            UsersAPI.unFollowUser(user.id)
+              .then(() => {
+                unFollowAC(user.id, user.followed)
+                setFollowingProgressAC(null)
+              })
+          }
 
-        const isFollow = user.followed ? 'unfollow' : 'follow'
-        return (
-          <React.Fragment key={user.id}>
-            <div className={style.wrapper}>
-              <div className={style.userItem}>
-                <img className={style.img} src={user.photos.large || emptyAvatar}/>
-                <div className={style.userInfo}>
-                  <NavLink className={style.link} to={`/profile/${user.id}`}>
-                    <div className={style.name}>{user.name}</div>
-                  </NavLink>
+          const isFollow = user.followed ? 'unfollow' : 'follow'
+          return (
+            <React.Fragment key={user.id}>
+              <div className={style.wrapper}>
+                <div className={style.userItem}>
+                  <img className={style.img} src={user.photos.large || emptyAvatar}/>
+                  <div className={style.userInfo}>
+                    <NavLink className={style.link} to={`/profile/${user.id}`}>
+                      <div className={style.name}>{user.name}</div>
+                      <div className={style.name}>{user.id}</div>
+                    </NavLink>
+                  </div>
                 </div>
+                {user.followed
+                  ?
+                  <Button disabled={followingProgress === user.id} name={isFollow} callBack={onClickUnfollowUser}/>
+                  :
+                  <Button disabled={followingProgress === user.id} name={isFollow} callBack={onClickFollowUser}/>
+                }
               </div>
-              {user.followed
-                ?
-                <Button name={isFollow} callBack={onClickUnfollowUser}/>
-                :
-                <Button name={isFollow} callBack={onClickFollowUser}/>
-              }
-            </div>
-          </React.Fragment>
-        )
-      })}
+            </React.Fragment>
+          )
+        }
+      )
+      }
     </React.Fragment>
   )
 }

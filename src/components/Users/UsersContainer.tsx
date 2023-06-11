@@ -5,6 +5,7 @@ import {
   followAC,
   setCurrentPageAC,
   setFetchingAC,
+  setFollowingProgressAC,
   setTotalUserCountAC,
   setUsersAC,
   unFollowAC
@@ -49,6 +50,9 @@ class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
             unFollowAC={this.props.unFollowAC}
             usersPage={this.props.usersPage}
             currentPage={this.props.currentPage}
+            followingProgress={this.props.followingProgress}
+            setFollowingProgressAC={this.props.setFollowingProgressAC}
+            setFetchingAC={this.props.setFetchingAC}
           />}
       </React.Fragment>
     )
@@ -61,6 +65,7 @@ type mapStateToPropsType = {
   totalCount: number
   currentPage: number
   isFetching: boolean
+  followingProgress:number | null
 }
 
 type mapDispatchToPropsType = {
@@ -69,6 +74,7 @@ type mapDispatchToPropsType = {
   setUsersAC: (users: UsersDataType[]) => void
   setCurrentPageAC: (currentPage: number) => void
   setTotalUserCountAC: (totalCount: number) => void
+  setFollowingProgressAC: (followingProgress:number | null) => void
   setFetchingAC: (isFetching: boolean) => void
 }
 
@@ -80,7 +86,8 @@ const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
     pageSize: state.usersReducer.pageSize,
     totalCount: state.usersReducer.totalCount,
     currentPage: state.usersReducer.currentPage,
-    isFetching: state.usersReducer.isFetching
+    isFetching: state.usersReducer.isFetching,
+    followingProgress: state.usersReducer.isFollowingProgress
   }
 }
 
@@ -90,6 +97,7 @@ export default connect(mapStateToProps, {
     setUsersAC,
     setCurrentPageAC,
     setTotalUserCountAC,
-    setFetchingAC
+    setFetchingAC,
+    setFollowingProgressAC
   }
 )(UsersContainer)

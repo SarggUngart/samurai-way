@@ -5,7 +5,8 @@ const usersReducerInitialState: UsersPageType = {
   pageSize: 10,
   totalCount: 0,
   currentPage: 1,
-  isFetching: false
+  isFetching: false,
+  isFollowingProgress: null
 }
 
 
@@ -36,8 +37,15 @@ export const usersReducer = (state: UsersPageType = usersReducerInitialState, ac
     case "SET_FETCHING": {
       return {...state, isFetching: action.isFetching}
     }
-  }
+    case "SET_FOLLOWING_PROGRESS": {
+      return {
+        ...state,
+        isFollowingProgress: action.isFollowingProgress
+      }
+    }
 
+
+  }
   return state
 }
 
@@ -45,7 +53,7 @@ export const followAC = (id: number, followed: boolean) => {
   return {
     type: 'FOLLOW',
     id,
-    followed:!followed
+    followed: !followed
   } as const
 }
 
@@ -84,3 +92,11 @@ export const setFetchingAC = (isFetching: boolean) => {
     isFetching
   } as const
 }
+
+export const setFollowingProgressAC = (isFollowingProgress: number | null) => {
+  return {
+    type: 'SET_FOLLOWING_PROGRESS',
+    isFollowingProgress
+  } as const
+}
+

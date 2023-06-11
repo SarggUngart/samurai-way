@@ -22,7 +22,6 @@ export const UsersAPI = {
   }
 }
 
-
 export const ProfileAPI = {
   getProfile(userId:string){
     return axiosInstance.get(`/profile/${userId}`)
