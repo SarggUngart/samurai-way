@@ -23,6 +23,6 @@
 
 .btn:disabled, .btn:hover:disabled, .btn:disabled:active {
     background-color: grey;
-    cursor: not-allowed;
+    cursor: auto;
     scale: 1;
 }

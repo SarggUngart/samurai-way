@@ -86,7 +86,6 @@ export const Users: React.FC<UsersClearPropsType> = (props) => {
                   <div className={style.userInfo}>
                     <NavLink className={style.link} to={`/profile/${user.id}`}>
                       <div className={style.name}>{user.name}</div>
-                      <div className={style.name}>{user.id}</div>
                     </NavLink>
                   </div>
                 </div>

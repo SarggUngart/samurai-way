@@ -3,6 +3,7 @@ import {UsersDataType, UsersPageType} from "../../redux/stateTypes";
 import {ReduxStateType} from "../../redux/redux-store";
 import {
   followAC,
+  getUsersTC,
   setCurrentPageAC,
   setFetchingAC,
   setFollowingProgressAC,
@@ -13,30 +14,21 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import {CircularProgress} from "@mui/material";
-import {UsersAPI} from "../../api/api";
 
 
 class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
   componentDidMount() {
-    this.props.setFetchingAC(false)
-    UsersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-      .then(data => {
-        this.props.setUsersAC(data.items)
-        this.props.setTotalUserCountAC(data.totalCount)
-        this.props.setFetchingAC(true)
-      })
+    this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
   }
 
   onClickSetCurrentPage = (currentPage: number) => {
-    this.props.setCurrentPageAC(currentPage)
-    UsersAPI.getUsers(currentPage, this.props.pageSize)
-      .then(data => this.props.setUsersAC(data.items))
+    this.props.getUsersTC(currentPage, this.props.pageSize)
   }
 
   render() {
     return (
       <React.Fragment>
-        {!this.props.isFetching
+        {this.props.isFetching
           ?
           <CircularProgress
             sx={{margin: 'auto'}}
@@ -65,7 +57,7 @@ type mapStateToPropsType = {
   totalCount: number
   currentPage: number
   isFetching: boolean
-  followingProgress:number | null
+  followingProgress: number | null
 }
 
 type mapDispatchToPropsType = {
@@ -74,8 +66,9 @@ type mapDispatchToPropsType = {
   setUsersAC: (users: UsersDataType[]) => void
   setCurrentPageAC: (currentPage: number) => void
   setTotalUserCountAC: (totalCount: number) => void
-  setFollowingProgressAC: (followingProgress:number | null) => void
+  setFollowingProgressAC: (followingProgress: number | null) => void
   setFetchingAC: (isFetching: boolean) => void
+  getUsersTC: (currentPage: number, pageSize: number) => void
 }
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -98,6 +91,7 @@ export default connect(mapStateToProps, {
     setCurrentPageAC,
     setTotalUserCountAC,
     setFetchingAC,
-    setFollowingProgressAC
+    setFollowingProgressAC,
+    getUsersTC
   }
 )(UsersContainer)

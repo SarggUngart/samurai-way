@@ -1,4 +1,6 @@
 import {ActionsType, UsersDataType, UsersPageType} from "./stateTypes";
+import {Dispatch} from "redux";
+import {UsersAPI} from "../api/api";
 
 const usersReducerInitialState: UsersPageType = {
   usersData: [] as UsersDataType[],
@@ -43,8 +45,6 @@ export const usersReducer = (state: UsersPageType = usersReducerInitialState, ac
         isFollowingProgress: action.isFollowingProgress
       }
     }
-
-
   }
   return state
 }
@@ -99,4 +99,16 @@ export const setFollowingProgressAC = (isFollowingProgress: number | null) => {
     isFollowingProgress
   } as const
 }
+
+export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+  dispatch(setFetchingAC(true))
+  UsersAPI.getUsers(currentPage, pageSize)
+    .then(data => {
+      dispatch(setCurrentPageAC(currentPage))
+      dispatch(setUsersAC(data.items))
+      dispatch(setTotalUserCountAC(data.totalCount))
+      dispatch(setFetchingAC(false))
+    })
+}
+
 
