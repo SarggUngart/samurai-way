@@ -6,6 +6,8 @@ import React from "react";
 import {Users} from "./Users";
 import {CircularProgress} from "@mui/material";
 import {WithAuthRedirect} from "../../HOC/WithAuthRedirect";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 
 class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
@@ -71,11 +73,10 @@ const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
   }
 }
 
-const AuthRedirectComponent = WithAuthRedirect(UsersContainer)
 
-export default connect(mapStateToProps, {
+export default compose<React.ComponentType>(connect(mapStateToProps, {
     getUsersTC,
     followUserTC,
     unFollowUserTC
   }
-)(AuthRedirectComponent)
+), withRouter, WithAuthRedirect)(UsersContainer)
