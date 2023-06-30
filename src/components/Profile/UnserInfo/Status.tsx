@@ -3,37 +3,48 @@ import style from "./UserInfo.module.css";
 
 
 type StatusPropsType = {
-  about: string
+  status: string
+  changeProfileStatusTC: (status: string) => void
 }
 
+type StatusStateType = { editMode: boolean, status: string }
 
-class Status extends React.Component<StatusPropsType, { editMode: boolean }> {
+class Status extends React.Component<StatusPropsType, StatusStateType> {
 
   state = {
-    editMode: false
+    editMode: false,
+    status: this.props.status
   }
 
-  activateEditMode() {
+
+  activateEditMode = () => {
     this.setState({
-      editMode: true
+      editMode: true,
     })
   }
 
-  deActivateEditMode() {
+  deActivateEditMode = () => {
     this.setState({
       editMode: false
     })
+    this.props.changeProfileStatusTC(this.state.status)
   }
 
+  changeStatusHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      status: e.currentTarget.value
+    })
+  }
 
   render() {
     return <>
       <h4 style={{margin: '0'}}>Статус</h4>
       {!this.state.editMode
         ?
-        <div onDoubleClick={this.activateEditMode.bind(this)} className={style.userItem}>{this.props.about}</div>
+        <div onDoubleClick={this.activateEditMode} className={style.userItem}>{this.props.status}</div>
         :
-        <input autoFocus onBlur={this.deActivateEditMode.bind(this)} className={style.input} value={this.props.about}/>
+        <input onChange={this.changeStatusHandler} autoFocus onBlur={this.deActivateEditMode} className={style.input}
+               value={this.state.status}/>
       }
     </>
   }

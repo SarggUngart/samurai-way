@@ -1,4 +1,4 @@
-import {addPostAC, setUserProfileAC, updatePostAC} from "./profile-reducer";
+import {addPostAC, getStatusAC, setUserProfileAC, updatePostAC} from "./profile-reducer";
 import {addMessageAC, updateMessageAC} from "./dialogs-reducer";
 import {
   followAC,
@@ -72,6 +72,7 @@ export type ProfilePageType = {
   profilePostsData: PostsDataType[]
   newPostText: string
   profile: ProfileType
+  status: string
 }
 
 export type DialogsPageType = {
@@ -86,7 +87,7 @@ export type UsersPageType = {
   totalCount: number
   currentPage: number
   isFetching: boolean
-  isFollowingProgress: number| null
+  isFollowingProgress: number | null
 }
 
 export type AuthUserType = {
@@ -95,7 +96,6 @@ export type AuthUserType = {
   login: string | null
   isAuth: boolean
 }
-
 
 
 export type ActionsType =
@@ -112,6 +112,7 @@ export type ActionsType =
   | ReturnType<typeof setUserProfileAC>
   | ReturnType<typeof setUserDataAC>
   | ReturnType<typeof setFollowingProgressAC>
+  | ReturnType<typeof getStatusAC>
 
 
 

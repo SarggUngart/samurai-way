@@ -21,12 +21,24 @@ export const UsersAPI = {
       .then(res => res.data)
   }
 }
+
+
 export const ProfileAPI = {
   getProfile(userId: string) {
     return axiosInstance.get(`/profile/${userId}`)
       .then(res => res.data)
+  },
+  getStatusUserID(userId: string) {
+    return axiosInstance.get(`/profile/status/${userId}`)
+      .then(res => res.data)
+  },
+  changeStatus(status: string) {
+    return axiosInstance.put(`profile/status`, {status})
+      .then(res => res.data)
   }
 }
+
+
 export const AuthAPI = {
   getAuth() {
     return axiosInstance(`/auth/me`)

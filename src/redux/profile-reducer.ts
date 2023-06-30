@@ -16,7 +16,8 @@ const initialProfileState: ProfilePageType = {
       likesCount: 2
     }
   ] as PostsDataType[],
-  newPostText: ""
+  newPostText: "",
+  status: ''
 }
 
 export const profileReducer = (state: ProfilePageType = initialProfileState, action: ActionsType): ProfilePageType => {
@@ -38,6 +39,11 @@ export const profileReducer = (state: ProfilePageType = initialProfileState, act
     case "SET-USER-PROFILE": {
       return {...state, profile: action.profile}
     }
+
+    case "SET-STATUS": {
+      return {...state, status: action.status}
+    }
+
     default:
       return state
   }
@@ -63,7 +69,26 @@ export const setUserProfileAC = (profile: ProfileType) => {
   } as const
 }
 
+export const getStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
+
 export const setProfileTC = (userId: string) => (dispatch: Dispatch) => {
   return ProfileAPI.getProfile(userId)
     .then(data => dispatch(setUserProfileAC(data)))
+}
+
+export const setProfileStatusTC = (userId: string) => (dispatch: Dispatch) => {
+  return ProfileAPI.getStatusUserID(userId)
+    .then(data => {
+      dispatch(getStatusAC(data))
+    })
+
+}
+
+export const changeProfileStatusTC = (status: string) => (dispatch: Dispatch) => {
+  return ProfileAPI.changeStatus(status)
+    .then(res => {
+      if (res.data.resultCode === 0) {
+        dispatch(getStatusAC(status))
+      }
+    })
 }
