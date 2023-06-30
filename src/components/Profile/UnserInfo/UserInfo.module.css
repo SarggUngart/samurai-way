@@ -1,20 +1,29 @@
 .avatar {
-    width: 150px;
+    width: 200px;
     margin: 15px;
     border-radius: 15px;
 }
 
-.user{
+.user {
     display: flex;
     gap: 20px;
 }
 
-.userInfo{
+.userInfo {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.userItem{
+.userItem {
     margin-bottom: 20px;
+}
+
+.userItem:last-child {
+    margin-bottom: 0
+}
+
+.input {
+    border: none;
+    font-size: inherit;
 }

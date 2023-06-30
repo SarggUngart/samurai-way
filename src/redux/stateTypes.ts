@@ -96,6 +96,8 @@ export type AuthUserType = {
   isAuth: boolean
 }
 
+
+
 export type ActionsType =
   ReturnType<typeof addPostAC>
   | ReturnType<typeof updatePostAC>
