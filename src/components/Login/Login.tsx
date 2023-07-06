@@ -1,7 +1,9 @@
 import React from 'react';
-import {SubmitErrorHandler, SubmitHandler, useForm} from "react-hook-form"
+import {SubmitHandler, useForm} from "react-hook-form"
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import Button from "../Button/Button";
+import {loginTS} from "../../redux/auth-reducer";
+import {useAppDispatch} from "../../redux/redux-store";
 
 
 type InputsFormType = {
@@ -12,27 +14,28 @@ type InputsFormType = {
 
 
 export const Login = () => {
-  const {register, handleSubmit, formState: {errors}} = useForm<InputsFormType>({mode:"onBlur",
+
+  const dispatch = useAppDispatch();
+
+
+  const {register, handleSubmit, reset, formState: {errors, isValid}} = useForm<InputsFormType>({
+    mode: "onBlur",
     defaultValues: {
       email: "",
       password: "",
       rememberMe: false,
-    }
+    },
   })
 
   const submit: SubmitHandler<InputsFormType> = (data) => {
-    console.log(data)
+    dispatch(loginTS(data.email, data.password, data.rememberMe))
+    reset()
   }
-
-  const errorHandler: SubmitErrorHandler<InputsFormType> = (values) => {
-    console.log(values.email)
-  };
-
 
   return (
     <Grid container justifyContent={"center"}>
       <Grid sx={{marginTop: '50px'}} item justifyContent={"center"}>
-        <form onSubmit={handleSubmit(submit, errorHandler)}>
+        <form onSubmit={handleSubmit(submit)}>
           <FormControl>
             <FormLabel>
               <p>
@@ -58,7 +61,7 @@ export const Login = () => {
                       message: 'Invalid email address'
                     }
                   }
-                 )}
+                )}
                 label="Email"
                 margin="normal"
               />
@@ -82,7 +85,9 @@ export const Login = () => {
                   <Checkbox {...register('rememberMe')}/>
                 }
               />
-              <Button name={'submit'} callBack={handleSubmit(submit, errorHandler)}/>
+              <Button name={'submit'} callBack={handleSubmit(submit)}
+                // disabled={!isValid}
+              />
             </FormGroup>
           </FormControl>
         </form>

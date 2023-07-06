@@ -40,9 +40,19 @@ export const ProfileAPI = {
 
 
 export const AuthAPI = {
-  getAuth() {
-    return axiosInstance(`/auth/me`)
+  me() {
+    return axiosInstance.get(`/auth/me`)
       .then(res => res.data)
+  },
+  login(email: string, password: string, rememberMe: boolean) {
+    return axiosInstance.post(`/auth/login`, {
+      email,
+      password,
+      rememberMe
+    })
+  },
+  logOut(){
+    return axiosInstance.delete(`/auth/login`)
   }
 }
 

@@ -1,6 +1,7 @@
 import {ActionsType, AuthUserType} from "./stateTypes";
-import {Dispatch} from "redux";
 import {AuthAPI} from "../api/api";
+import {AppThunk} from "./redux-store";
+import {Dispatch} from "redux";
 
 const authReducerInitialState: AuthUserType = {
   id: null,
@@ -32,8 +33,8 @@ export const setUserDataAC = (data: AuthUserType) => {
   } as const
 }
 
-export const authTC = () => (dispatch: Dispatch) => {
-  AuthAPI.getAuth()
+export const getAuthUserDataTC = () => (dispatch:Dispatch) => {
+  AuthAPI.me()
     .then(data => {
       if (data.resultCode === 0) {
         dispatch(setUserDataAC(data.data))
@@ -41,6 +42,13 @@ export const authTC = () => (dispatch: Dispatch) => {
     })
 }
 
-
+export const loginTS = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
+  AuthAPI.login(email, password, rememberMe)
+    .then(res => {
+      if (res.data.resultCode === 0) {
+        dispatch(getAuthUserDataTC())
+      }
+    })
+}
 
 

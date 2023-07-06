@@ -3,7 +3,7 @@ import Header from "./Header";
 import {connect} from "react-redux";
 import {ReduxStateType} from "../../redux/redux-store";
 import {AuthUserType} from "../../redux/stateTypes";
-import {authTC} from "../../redux/auth-reducer";
+import {getAuthUserDataTC} from "../../redux/auth-reducer";
 import {compose} from "redux";
 
 
@@ -38,4 +38,4 @@ const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => {
   }
 }
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {authTC}))(HeaderContainer)
+export default compose<React.ComponentType>(connect(mapStateToProps, {authTC: getAuthUserDataTC}))(HeaderContainer)
