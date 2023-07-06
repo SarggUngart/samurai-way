@@ -24,7 +24,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
         <div className={style.userInfo}>
           <div className={style.userItem}><h4 style={{margin: '0'}}>Имя</h4> {profile.fullName}</div>
           <div className={style.userItem}><h4 style={{margin: '0'}}>Обо мне</h4> {profile.aboutMe}</div>
-          <Status status={status} changeProfileStatusTC={changeProfileStatusTC}/>
+          <Status status={status} updateStatus={changeProfileStatusTC}/>
         </div>
       </div>
     );

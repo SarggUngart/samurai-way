@@ -13,7 +13,7 @@ class ProfileContainer extends React.Component<WithRouterProfileType, ProfilePag
 
     let userId = this.props.match.params.userId
     if (!userId) {
-      userId = '2'
+      userId = '23675'
     }
     this.props.setProfileTC(userId)
     this.props.setProfileStatusTC(userId)
