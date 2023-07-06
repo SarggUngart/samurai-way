@@ -2,8 +2,9 @@ import React from 'react';
 import {SubmitHandler, useForm} from "react-hook-form"
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import Button from "../Button/Button";
-import {loginTS} from "../../redux/auth-reducer";
-import {useAppDispatch} from "../../redux/redux-store";
+import {loginTC} from "../../redux/auth-reducer";
+import {useAppDispatch, useAppSelector} from "../../redux/redux-store";
+import {Redirect} from "react-router-dom";
 
 
 type InputsFormType = {
@@ -16,6 +17,7 @@ type InputsFormType = {
 export const Login = () => {
 
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector(state => state.authReducer.isAuth)
 
 
   const {register, handleSubmit, reset, formState: {errors, isValid}} = useForm<InputsFormType>({
@@ -27,15 +29,21 @@ export const Login = () => {
     },
   })
 
-  const submit: SubmitHandler<InputsFormType> = (data) => {
-    dispatch(loginTS(data.email, data.password, data.rememberMe))
+  const submitHandler: SubmitHandler<InputsFormType> = (data) => {
+    dispatch(loginTC(data.email, data.password, data.rememberMe))
     reset()
+  }
+
+  if(isLoggedIn){
+    return (
+      <Redirect to={'/profile'}/>
+    )
   }
 
   return (
     <Grid container justifyContent={"center"}>
       <Grid sx={{marginTop: '50px'}} item justifyContent={"center"}>
-        <form onSubmit={handleSubmit(submit)}>
+        <form onSubmit={handleSubmit(submitHandler)}>
           <FormControl>
             <FormLabel>
               <p>
@@ -85,7 +93,7 @@ export const Login = () => {
                   <Checkbox {...register('rememberMe')}/>
                 }
               />
-              <Button name={'submit'} callBack={handleSubmit(submit)}
+              <Button name={'submit'} callBack={handleSubmit(submitHandler)}
                 // disabled={!isValid}
               />
             </FormGroup>

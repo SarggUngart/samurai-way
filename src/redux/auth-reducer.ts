@@ -16,8 +16,7 @@ export const authReducer = (state: AuthUserType = authReducerInitialState, actio
     case "SET-USER-DATA": {
       return {
         ...state,
-        ...action.data,
-        isAuth: true
+        ...action.data
       }
     }
   }
@@ -33,22 +32,33 @@ export const setUserDataAC = (data: AuthUserType) => {
   } as const
 }
 
-export const getAuthUserDataTC = () => (dispatch:Dispatch) => {
+export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
   AuthAPI.me()
-    .then(data => {
-      if (data.resultCode === 0) {
-        dispatch(setUserDataAC(data.data))
+    .then(res => {
+      if (res.resultCode === 0) {
+        dispatch(setUserDataAC({id: res.data.id, email: res.data.email, login: res.data.login, isAuth: true}))
       }
     })
 }
 
-export const loginTS = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
   AuthAPI.login(email, password, rememberMe)
     .then(res => {
       if (res.data.resultCode === 0) {
         dispatch(getAuthUserDataTC())
+      }else {
+        alert(res.data.messages[0])
       }
     })
 }
 
+
+export const logOutTC = (): AppThunk => (dispatch) => {
+  AuthAPI.logOut()
+    .then(res => {
+      if (res.data.resultCode === 0) {
+        dispatch(setUserDataAC({id: null, email: null, login: null, isAuth: false}))
+      }
+    })
+}
 

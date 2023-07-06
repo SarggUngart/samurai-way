@@ -21,7 +21,6 @@ class UsersContainer extends React.Component<UsersPropsType, UsersPageType> {
 
 
   render() {
-
     return (
       <React.Fragment>
         {this.props.isFetching
