@@ -7,12 +7,14 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-
+import {ErrorSnackbar} from "./components/ErrorSnackbar/ErrorSnackbar";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
+
       <div className={'app-wrapper'}>
+
         <HeaderContainer/>
         <Nav/>
         <main className={'main'}>
@@ -24,6 +26,7 @@ const App: React.FC = () => {
             <UsersContainer/>}/>
           <Route path='/login' render={() =>
             <Login/>}/>
+          <ErrorSnackbar/>
         </main>
       </div>
     </BrowserRouter>

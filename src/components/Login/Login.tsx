@@ -20,7 +20,7 @@ export const Login = () => {
   const isLoggedIn = useAppSelector(state => state.authReducer.isAuth)
 
 
-  const {register, handleSubmit, reset, formState: {errors, isValid}} = useForm<InputsFormType>({
+  const {register, setError, handleSubmit, reset, formState: {errors, isValid}} = useForm<InputsFormType>({
     mode: "onBlur",
     defaultValues: {
       email: "",
@@ -34,7 +34,7 @@ export const Login = () => {
     reset()
   }
 
-  if(isLoggedIn){
+  if (isLoggedIn) {
     return (
       <Redirect to={'/profile'}/>
     )
@@ -73,7 +73,8 @@ export const Login = () => {
                 label="Email"
                 margin="normal"
               />
-              {errors.email && <div style={{fontSize: '14px', color: 'red'}}>{errors.email.message || 'Error'}</div>}
+              {errors.email &&
+                <div style={{fontSize: '14px', color: 'red'}}>{errors.email.message || 'Error'}</div>}
               <TextField
                 {...register('password', {
                   required: 'email address is required',

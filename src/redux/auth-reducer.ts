@@ -2,6 +2,7 @@ import {ActionsType, AuthUserType} from "./stateTypes";
 import {AuthAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
 import {Dispatch} from "redux";
+import {setErrorAC} from "./app-reducer";
 
 const authReducerInitialState: AuthUserType = {
   id: null,
@@ -44,10 +45,11 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
   AuthAPI.login(email, password, rememberMe)
     .then(res => {
+      console.log(res)
       if (res.data.resultCode === 0) {
         dispatch(getAuthUserDataTC())
-      }else {
-        alert(res.data.messages[0])
+      } else {
+        dispatch(setErrorAC(res.data.messages[0]))
       }
     })
 }

@@ -5,6 +5,7 @@ import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {appReducer} from "./app-reducer";
 
 
 export type RootState = typeof reducer;
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   profileReducer,
   dialogsReducer,
   usersReducer,
-  authReducer
+  authReducer,
+  appReducer
 })
 
 
