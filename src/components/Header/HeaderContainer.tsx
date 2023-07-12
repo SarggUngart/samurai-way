@@ -9,10 +9,6 @@ import {compose} from "redux";
 
 class HeaderContainer extends React.Component<AuthUserPropsType, AuthUserType> {
 
-  componentDidMount() {
-    this.props.authTC()
-  }
-
   render() {
     return (
       <Header {...this.props}/>

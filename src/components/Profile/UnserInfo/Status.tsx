@@ -36,8 +36,8 @@ class Status extends React.Component<StatusPropsType, StatusStateType> {
     })
   }
 
-  changeStatusKeyHandler = (e:React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.code === 'Enter' || e.code === 'NumpadEnter'){
+  changeStatusKeyHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       this.deactivateEditMode()
     }
   }
@@ -52,12 +52,16 @@ class Status extends React.Component<StatusPropsType, StatusStateType> {
 
   render() {
     return <>
-      <h4 style={{margin: '0'}}>Статус</h4>
+      <div>
+        <span style={{margin: '0', fontWeight:'800'}}>Статус</span>
+        <button onClick={this.activateEditMode}>edit</button>
+      </div>
       {!this.state.editMode
         ?
         <div onDoubleClick={this.activateEditMode} className={style.userItem}>{this.state.status}</div>
         :
-        <input onChange={this.changeStatusHandler} onKeyPress={this.changeStatusKeyHandler} autoFocus onBlur={this.deactivateEditMode} className={style.input}
+        <input onChange={this.changeStatusHandler} onKeyPress={this.changeStatusKeyHandler} autoFocus
+               onBlur={this.deactivateEditMode} className={style.input}
                value={this.state.status}/>
       }
     </>

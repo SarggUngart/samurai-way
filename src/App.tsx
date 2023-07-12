@@ -8,29 +8,54 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {ErrorSnackbar} from "./components/ErrorSnackbar/ErrorSnackbar";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {getAuthUserDataTC} from "./redux/auth-reducer";
 
-const App: React.FC = () => {
-  return (
-    <BrowserRouter>
+class App extends React.Component<AuthUserPropsType> {
 
-      <div className={'app-wrapper'}>
+  componentDidMount() {
+    this.props.authTC()
+  }
 
-        <HeaderContainer/>
-        <Nav/>
-        <main className={'main'}>
-          <Route path='/profile/:userId?' render={() =>
-            <ProfileContainer/>}/>
-          <Route path='/dialogs' render={() =>
-            <DialogsContainer/>}/>
-          <Route path='/users' render={() =>
-            <UsersContainer/>}/>
-          <Route path='/login' render={() =>
-            <Login/>}/>
-          <ErrorSnackbar/>
-        </main>
-      </div>
-    </BrowserRouter>
-  );
+  render() {
+    return (
+      <BrowserRouter>
+
+        <div className={'app-wrapper'}>
+
+          <HeaderContainer/>
+          <Nav/>
+          <main className={'main'}>
+            <Route path='/profile/:userId?' render={() =>
+              <ProfileContainer/>}/>
+            <Route path='/dialogs' render={() =>
+              <DialogsContainer/>}/>
+            <Route path='/users' render={() =>
+              <UsersContainer/>}/>
+            <Route path='/login' render={() =>
+              <Login/>}/>
+            <ErrorSnackbar/>
+          </main>
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
-export default App;
+
+type mapStateToPropsType = {
+  isAuth: boolean
+  login: string | null
+}
+
+type mapDispatchToPropsType = {
+  authTC: () => void
+}
+
+export type AuthUserPropsType = mapDispatchToPropsType & mapStateToPropsType
+
+
+export default compose<React.ComponentType>(connect(null, {
+  authTC: getAuthUserDataTC
+}))(App)

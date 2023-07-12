@@ -45,12 +45,15 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
   AuthAPI.login(email, password, rememberMe)
     .then(res => {
-      console.log(res)
       if (res.data.resultCode === 0) {
         dispatch(getAuthUserDataTC())
       } else {
-        dispatch(setErrorAC(res.data.messages[0]))
+        const err = res.data.messages[0]
+        if (err) {
+          dispatch(setErrorAC(err))
+        }
       }
+      dispatch(setErrorAC('some error'))
     })
 }
 

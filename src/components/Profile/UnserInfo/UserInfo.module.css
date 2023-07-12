@@ -17,6 +17,8 @@
 }
 
 .userItem {
+    max-width: 150px;
+    overflow: hidden;
     margin-bottom: 20px;
 }
 
