@@ -34,7 +34,7 @@ export const setUserDataAC = (data: AuthUserType) => {
 }
 
 export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
-  AuthAPI.me()
+  return AuthAPI.me()
     .then(res => {
       if (res.resultCode === 0) {
         dispatch(setUserDataAC({id: res.data.id, email: res.data.email, login: res.data.login, isAuth: true}))
@@ -53,7 +53,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
           dispatch(setErrorAC(err))
         }
       }
-      dispatch(setErrorAC('some error'))
     })
 }
 

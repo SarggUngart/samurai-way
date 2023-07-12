@@ -1,4 +1,5 @@
 import {AppThunk} from "./redux-store";
+import {getAuthUserDataTC} from "./auth-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -26,6 +27,9 @@ export const setInitAC = (isInitialized: boolean) => ({type: 'APP/SET-INIT', isI
 
 type ActionsType = ReturnType<typeof setErrorAC> | ReturnType<typeof setInitAC>
 
-const initializeTC = (): AppThunk => (dispatch) => {
-
+export const initializeAppTC = (): AppThunk => (dispatch) => {
+  dispatch(getAuthUserDataTC())
+    .then(() => {
+      dispatch(setInitAC(true))
+    })
 }

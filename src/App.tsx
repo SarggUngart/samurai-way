@@ -10,20 +10,26 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {ErrorSnackbar} from "./components/ErrorSnackbar/ErrorSnackbar";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {getAuthUserDataTC} from "./redux/auth-reducer";
+import {initializeAppTC} from "./redux/app-reducer";
+import {ReduxStateType} from "./redux/redux-store";
+import CircularProgress from "@mui/material/CircularProgress";
 
 class App extends React.Component<AuthUserPropsType> {
 
   componentDidMount() {
-    this.props.authTC()
+    this.props.initializeAppTC()
   }
 
   render() {
+    if (!this.props.isInit) {
+      return <CircularProgress
+        sx={{margin: 'auto'}}
+        color="secondary"/>
+    }
+
     return (
       <BrowserRouter>
-
         <div className={'app-wrapper'}>
-
           <HeaderContainer/>
           <Nav/>
           <main className={'main'}>
@@ -45,17 +51,20 @@ class App extends React.Component<AuthUserPropsType> {
 
 
 type mapStateToPropsType = {
-  isAuth: boolean
-  login: string | null
+  isInit: boolean
 }
 
 type mapDispatchToPropsType = {
-  authTC: () => void
+  initializeAppTC: () => void
 }
 
 export type AuthUserPropsType = mapDispatchToPropsType & mapStateToPropsType
 
 
-export default compose<React.ComponentType>(connect(null, {
-  authTC: getAuthUserDataTC
+const mapStateToProps = (state: ReduxStateType): mapStateToPropsType => ({
+  isInit: state.appReducer.isInitialized
+})
+
+export default compose<React.ComponentType>(connect(mapStateToProps, {
+  initializeAppTC
 }))(App)
